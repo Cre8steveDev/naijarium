@@ -40,7 +40,6 @@ const Header = () => {
                       alt="Login"
                       width={22}
                       height={15}
-                      objectFit="cover"
                     />
                     <p>Sign In</p>
                   </li>
@@ -63,7 +62,6 @@ const Header = () => {
                       alt="Create Post"
                       width={23}
                       height={12}
-                      objectFit="cover"
                     />
                     <p>Create Post</p>
                   </li>

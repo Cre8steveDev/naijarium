@@ -25,10 +25,18 @@ export default function RootLayout({
     <html lang="en">
       <link rel="shortcut icon" href="/images/logo.png" type="image/png" />
       <body className={inter.className + ' bg-gray-100 overflow-hidden'}>
+        {/* Header Component  */}
         <Header />
-        <div className="grid grid-cols-7 w-full max-w-[1440px] mx-auto bg-gray-100 h-screen relative">
+
+        {/* Container holding body and side bars */}
+        <div className="grid grid-cols-8 w-full max-w-[1440px] mx-auto bg-gray-100 h-screen mt-4">
+          {/* Left Side Bar */}
           <LeftSideBarDesktop />
-          <div className="col-span-3">{children}</div>
+
+          {/* Main Center Content */}
+          <div className="col-span-4 overflow-y-scroll">{children}</div>
+
+          {/* Right Side Bar */}
           <RightSideBarDesktop />
         </div>
         {/* <Footer /> */}
