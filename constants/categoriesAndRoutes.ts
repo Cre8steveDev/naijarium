@@ -1,6 +1,6 @@
 import { TPostsCategory } from '@/types/types';
 
-export const categoryList: TPostsCategory[] = [
+export const postsCategoryNavLinks: TPostsCategory[] = [
   {
     title: 'Artificial Intelligence',
     route: '/posts/category/artificial-intelligence',

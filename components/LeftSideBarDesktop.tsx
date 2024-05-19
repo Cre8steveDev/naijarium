@@ -4,14 +4,16 @@
  * Might Change its position for sm to md
  */
 
+import SideBarNavigation from './ui/SideBarNavigation';
+import UserPersonalNavigation from './ui/UserPersonalNavigation';
+
 const LeftSideBarDesktop = () => {
   return (
-    <div className="col-span-2 h-full px-5 py-8 sticky top-0">
-      <aside className="w-full rounded-md bg-white p-3">
+    <div className="col-span-2 h-full px-5 py-8 sticky top-0 -mt-2">
+      <aside className="w-full rounded-md  p-3">
         <div>
-          <h3 className="flex items-center gap-2 cursor-pointer">
-            Top Rated Posts!
-          </h3>
+          <SideBarNavigation />
+          <UserPersonalNavigation />
         </div>
       </aside>
     </div>
