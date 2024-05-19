@@ -1,3 +1,9 @@
+/**
+ * Left Side Bar Component for Desktop View,
+ * With Navigation to Popular Tags
+ * Might Change its position for sm to md
+ */
+
 const LeftSideBarDesktop = () => {
   return (
     <div className="col-span-2 h-full px-5 py-8 sticky top-0">

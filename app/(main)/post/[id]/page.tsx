@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TPost } from '../../dummydata/dummyPostData';
+import { TPost } from '../../../../dummydata/dummyPostData';
 import { useParams } from 'next/navigation';
-import { fetchSinglePost } from '@/app/lib/fetchSinglePost';
+import { fetchSinglePost } from '@/lib/fetchSinglePost';
 
 const PostViewPage: React.FC = () => {
   const { id } = useParams();

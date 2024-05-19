@@ -1,15 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import FilterButton from './components/ui/FilterButton';
-import FetchDataContext from './contexts/homepagecontext';
+import FilterButton from '../components/ui/FilterButton';
+import FetchDataContext from '../contexts/homepagecontext';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
-import { TPost } from './dummydata/dummyPostData';
+import { TPost } from '../dummydata/dummyPostData';
 import Link from 'next/link';
-import { fetchFeaturedPosts } from './lib/fetchFeaturedPosts';
-import FeaturedPostCard from './components/FeaturedPostCard';
+import { fetchFeaturedPosts } from '../lib/fetchFeaturedPosts';
+import FeaturedPostCard from '../components/FeaturedPostCard';
 
 export default function Home() {
   const [filterFeed, setFilterFeed] = useState('new');

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import allPosts from '@/app/dummydata/dummyPostData';
+import allPosts from '@/dummydata/dummyPostData';
 import { NextResponse } from 'next/server';
 
 async function GET(
