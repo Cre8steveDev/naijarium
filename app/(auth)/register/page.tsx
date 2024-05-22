@@ -24,8 +24,23 @@ const RegisterPage: React.FC = () => {
     formState: { errors },
   } = useForm<TRegisterForm>();
 
-  const handleFormSubmit = (data: TRegisterForm) => {
+  const handleFormSubmit = async (data: TRegisterForm) => {
+    event?.preventDefault();
     console.log(data);
+
+    // Send request to the backend
+    const response = await fetch('/api/auth/register', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        Sender: 'Stephen Omoregie Testing',
+      },
+      body: JSON.stringify(data),
+    });
+
+    // get the response and print
+    const data_api = await response.json();
+    console.log(data_api);
   };
 
   const handleFormErrors: SubmitErrorHandler<TRegisterForm> = (error) => {
