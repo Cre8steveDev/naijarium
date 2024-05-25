@@ -1,16 +1,16 @@
 /**
- * Login Layout Page
+ * Registration Page Layout Page
  *
  */
 
 // Auth Layout
 
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+const RegisterLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="bg-gray-50 w-full h-full flex items-center absolute top-0 left-0 z-20">
+    <main className="bg-gray-50 w-full h-full flex items-center absolute top-0 left-0 z-20 backdrop-blur-md bg-opacity-50">
       {children}
     </main>
   );
 };
 
-export default LoginLayout;
+export default RegisterLayout;

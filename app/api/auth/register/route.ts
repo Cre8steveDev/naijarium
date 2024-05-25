@@ -14,34 +14,38 @@ export const POST = async (request: NextRequest) => {
     if (exists) {
       return NextResponse.json(
         { message: 'User already exists' },
-        { status: 500 }
+        { status: 409 }
       );
     }
 
     // Hash the plaintext password for storage in DB
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Decide if you want to use User.create with timestamps
-    // await User.create(
-    //   { username, email, password: hashedPassword, gender },
-    //   { timestamps: true }
-    // );
+    const newUser = await new User(
+      {
+        username,
+        email,
+        password: hashedPassword,
+        gender,
+        // createdAt: Date.now(),
+      },
+      { timestamps: true }
+    );
 
-    const newUser = await new User({
+    await User.create({
       username,
       email,
       password: hashedPassword,
       gender,
-      createdAt: Date.now(),
     });
-
-    // Ensure await before save
-    await newUser.save();
 
     return NextResponse.json(
       { message: 'User registered successfully' },
       { status: 201 }
     );
+
+    // Handle Errors that may occur during DB creation action
   } catch (error) {
     console.log(error);
     return NextResponse.json(

@@ -1,72 +1,140 @@
+'use client';
+
 /** Login Page for the application
  *
  */
 
 import Image from 'next/image';
-import imageSide from '@/public/images/login_img.jpg';
-import googleLogo from '@/public/images/google.webp';
-import githubLogo from '@/public/images/github.png';
+import { useRouter } from 'next/navigation';
 
-import { handleSocialSignIn } from '@/actions/authActions';
+// import { signIn } from '@/auth';
+import { signIn } from 'next-auth/react';
+
+import React, { useState } from 'react';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+
+import { TLoginForm } from '@/types/types';
+
+import imageSide from '@/public/images/login_girl.jpg';
+import SocialLogins from '@/components/ui/SocialLogins';
+
+// import { handleSocialSignIn } from '@/actions/authActions';
 
 const LoginPage: React.FC = () => {
+  const [formLoading, setFormLoading] = useState(false);
+  const router = useRouter();
+
+  // Destructure values from useForm Hook
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<TLoginForm>();
+
+  const handleFormSubmit = async (data: TLoginForm) => {
+    event?.preventDefault();
+
+    // Send request to the backend
+    setFormLoading(true);
+
+    try {
+      const response = await signIn('credentials', {
+        username: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      // Navigate to the Home Page on successful Login
+      if (response?.ok && response?.error === null) {
+        router.push('/');
+        return;
+      }
+
+      if (response?.error === 'CredentialsSignin')
+        throw new Error('Invalid Credentials. 😊');
+
+      throw new Error('Something went wrong. Try again.');
+      //  Catch Error appropriately
+    } catch (error: any) {
+      toast.error(error.message);
+
+      // Block that's finally run to stop form loading interaction
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleFormErrors: SubmitErrorHandler<TLoginForm> = (error) => {
+    if (error.email) return toast.error('Please enter your email address.');
+
+    if (error.password)
+      return toast.error('Password Field Cannot be empty. 😊');
+  };
+
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center h-screen p-8">
-      <div className="w-full">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 sm:p-12 max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 overflow-y-scroll h-full md:h-fit">
+      <div className="w-[80%] md:w-full ">
         <Image
           src={imageSide}
           alt="Login Photo"
-          //   You don't have to specify width and height if the image
-          // is directly imported into the project
-          //   width={1000}
-          //   height={0}
-          //   objectFit="cover"
-          className="w-full object-cover min-h-full"
+          className="w-full object-cover md:aspect-[2/3] object-[20%] rounded-2xl hover:scale-95 transition ease-in"
         />
       </div>
 
       {/* Start Login Definition form from here */}
-      <div className="w-full p-5">
-        <h2 className="text-2xl font-bold mb-6 text-green-800">
-          Sign In To Gain Access to Top Features in our Community!
+      <div className="w-full p-12 pl-8 ">
+        <h2 className="flex flex-col mb-4 text-3xl font-bold text-green-800">
+          <span className="w-full">Oya na! Awa Happy Place</span>
+          <span className="w-full text-orange-400 text-2xl">
+            Premium Gists and Convo.
+          </span>
         </h2>
 
-        {/* Credentials Sign In Form */}
-        <form></form>
+        <p className="text-sm   w-full max-w-[400px]">
+          Login to your account to connect with the trybe.
+        </p>
 
-        {/* Social Login Sign In Trigger  */}
-        <form action={handleSocialSignIn} className="flex flex-col gap-4">
-          <p>Login with your Social Accounts</p>
+        {/* User Registration Form */}
+        <form
+          className="flex flex-col w-full gap-5 mt-6"
+          onSubmit={handleSubmit(handleFormSubmit, handleFormErrors)}
+        >
+          <input
+            type="email"
+            minLength={10}
+            maxLength={40}
+            autoComplete="off"
+            {...register('email', { required: true })}
+            placeholder="Email Address"
+            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:border-red-600"
+          />
 
-          <div className="flex gap-3">
-            <button
-              type="submit"
-              name="auth"
-              value="google"
-              className="p-2 text-white font-semibold rounded-lg hover:bg-opacity-75 transition ease-in"
-            >
-              <Image
-                src={googleLogo}
-                alt="Login Photo"
-                className="w-[80%] object-cover mx-auto active:scale-90"
-              />
-            </button>
+          <input
+            type="password"
+            minLength={6}
+            autoComplete="off"
+            {...register('password', { required: true })}
+            placeholder="Enter your Password"
+            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600"
+          />
 
-            <button
-              type="submit"
-              name="auth"
-              value="google"
-              className="p-2 text-white font-semibold rounded-lg hover:bg-opacity-75 transition ease-in"
-            >
-              <Image
-                src={githubLogo}
-                alt="Login Photo"
-                className="w-full object-cover active:scale-90"
-              />
-            </button>
-          </div>
+          {/* Submit Button */}
+          <button
+            className={`w-full p-4 font-bold text-white bg-green-600 hover:bg-opacity-85 transition ease-in rounded-lg disabled:bg-slate-700 disabled:cursor-not-allowed ${
+              formLoading && 'animate-pulse'
+            }`}
+            type="submit"
+            disabled={formLoading}
+          >
+            <p> {formLoading ? 'Logging In. 😉' : 'Login In!'}</p>
+          </button>
         </form>
+        <SocialLogins />
       </div>
+
+      <Toaster />
     </div>
   );
 };

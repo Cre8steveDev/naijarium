@@ -10,3 +10,8 @@ export type TRegisterForm = {
   confirm_password: string;
   gender: string;
 };
+
+export type TLoginForm = {
+  email: string;
+  password: string;
+};

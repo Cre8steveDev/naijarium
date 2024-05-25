@@ -5,18 +5,28 @@
  */
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import React, { useState, useRef } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
 import { TRegisterForm } from '@/types/types';
 
 import imageSide from '@/public/images/login_img.jpg';
+import SocialLogins from '@/components/ui/SocialLogins';
 
 // import { handleSocialSignIn } from '@/actions/authActions';
 
 const RegisterPage: React.FC = () => {
+  const [formLoading, setFormLoading] = useState(false);
+  const router = useRouter();
+
+  // Form Ref
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Destructure values from useForm Hook
   const {
     register,
     handleSubmit,
@@ -26,21 +36,48 @@ const RegisterPage: React.FC = () => {
 
   const handleFormSubmit = async (data: TRegisterForm) => {
     event?.preventDefault();
-    console.log(data);
+    // console.log(data);
+
+    // Check that Passwords match
+    if (data.password !== data.confirm_password)
+      return toast.error(
+        'Sorry, your password does not match with the confirm password field'
+      );
 
     // Send request to the backend
-    const response = await fetch('/api/auth/register', {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        Sender: 'Stephen Omoregie Testing',
-      },
-      body: JSON.stringify(data),
-    });
 
-    // get the response and print
-    const data_api = await response.json();
-    console.log(data_api);
+    try {
+      setFormLoading(true);
+      const response = await axios({
+        method: 'post',
+        url: '/api/auth/register',
+        withCredentials: true,
+        data: data,
+      });
+
+      // Check response status and toast the error
+      if (response.status === 409)
+        throw new Error('Sorry. Credentials May already exist.');
+
+      if (response.status === 500)
+        throw new Error(
+          'There was an completing the registration. Try again later.'
+        );
+
+      const message: string = response.data.message;
+      toast.success(message);
+
+      // Navigate to the login page
+      router.push('/login');
+
+      //  Catch Error appropriately
+    } catch (error: any) {
+      toast.error(error.message);
+
+      // Block that's finally run to stop form loading interaction
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   const handleFormErrors: SubmitErrorHandler<TRegisterForm> = (error) => {
@@ -70,7 +107,9 @@ const RegisterPage: React.FC = () => {
       <div className="w-full p-12 pl-8 ">
         <h2 className="flex flex-col mb-4 text-3xl font-bold text-green-800">
           <span className="w-full">Welcome to Naijarium!</span>
-          <span className="w-full">The New Trybe.</span>
+          <span className="w-full text-orange-400 text-2xl">
+            The New Trybe.
+          </span>
         </h2>
 
         <p className="text-sm   w-full max-w-[400px]">
@@ -155,13 +194,18 @@ const RegisterPage: React.FC = () => {
 
           {/* Submit Button */}
           <button
-            className="w-full p-4 font-bold text-white bg-orange-600 rounded-lg"
+            className={`w-full p-4 font-bold text-white bg-orange-600 hover:bg-opacity-85 transition ease-in rounded-lg disabled:bg-slate-700 disabled:cursor-not-allowed ${
+              formLoading && 'animate-pulse'
+            }`}
             type="submit"
+            disabled={formLoading}
           >
-            Sign Up Now!
+            <p> {formLoading ? 'Creating Your Account. 😉' : 'Sign Up Now!'}</p>
           </button>
         </form>
+        <SocialLogins />
       </div>
+
       <Toaster />
     </div>
   );

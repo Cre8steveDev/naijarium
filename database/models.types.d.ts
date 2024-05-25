@@ -2,6 +2,7 @@ import { Schema, Document } from 'mongoose';
 
 // Define the User schema
 export interface IUser extends Document {
+  _id?: Schema.Types.ObjectId;
   username: string;
   email: string;
   password: string;
@@ -10,6 +11,7 @@ export interface IUser extends Document {
   posts?: Schema.Types.ObjectId[];
   comments?: Schema.Types.ObjectId[];
   friends?: Schema.Types.ObjectId[];
+  notifications?: number;
   likedPosts?: Schema.Types.ObjectId[];
   upvotedPosts?: Schema.Types.ObjectId[];
 }
@@ -19,8 +21,8 @@ export interface IPost extends Document {
   title: string;
   category: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   comments?: Schema.Types.ObjectId[];
   upvotes?: Schema.Types.ObjectId[];
 }
@@ -29,7 +31,7 @@ export interface IComment extends Document {
   author: Schema.Types.ObjectId;
   post: Schema.Types.ObjectId;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   likes?: Schema.Types.ObjectId[];
 }

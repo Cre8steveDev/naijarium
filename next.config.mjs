@@ -1,8 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['picsum.photos'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'picsum.photos', pathname: '**' },
+    ],
   },
 };
 
 export default nextConfig;
+
+/**
+ * {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+ */
