@@ -6,6 +6,7 @@
 
 import SideBarNavigation from './ui/SideBarNavigation';
 import UserPersonalNavigation from './ui/UserPersonalNavigation';
+import SignOutButton from './ui/SignOutButton';
 
 const LeftSideBarDesktop = () => {
   return (
@@ -14,6 +15,8 @@ const LeftSideBarDesktop = () => {
         <div>
           <SideBarNavigation />
           <UserPersonalNavigation />
+
+          <SignOutButton />
         </div>
       </aside>
     </div>

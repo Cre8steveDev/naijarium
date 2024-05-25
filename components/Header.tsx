@@ -1,28 +1,27 @@
+'use client';
 // Header Component For PC or Mobile
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
-type TFakeUser = {
-  name: string;
-  imgUrl: string;
-  notification: number;
-};
+// Import default images
+import CreatePostIcon from '@/public/images/create-post.png';
+import SignUpIcon from '@/public/images/login.png';
+import LogoIcon from '@/public/images/logo.png';
 
 const Header = () => {
-  // const user: TFakeUser = {
-  //   name: 'Stephen',
-  //   imgUrl: '/images/profile-icon.jpg',
-  //   notification: 4,
-  // };
+  const { data: session, status } = useSession();
+  const user = session?.user;
 
-  const user = null;
+  if (user) console.log(user);
 
   return (
     <header className="w-screen p-5 bg-white shadow-md shadow-slate-100 sticky top-0 z-10">
       <div className="w-full max-w-[1440px] mx-auto flex justify-between">
         <Link href={'/'}>
           <section className="flex items-center gap-3">
-            <Image src={'/images/logo.png'} alt="Logo" width={50} height={50} />
+            <Image src={LogoIcon} alt="Logo" width={50} height={50} />
             <h2 className=" text-4xl font-extrabold text-green-800">
               Naijarium
             </h2>
@@ -42,7 +41,7 @@ const Header = () => {
                 <Link href={'/register'}>
                   <li className="flex gap-2 w-[130px] rounded-lg bg-orange-600 p-3 text-slate-100 font-bold justify-center hover:bg-opacity-70 transition-colors ease-in">
                     <Image
-                      src={'/images/login.png'}
+                      src={SignUpIcon}
                       alt="Login"
                       width={22}
                       height={15}
@@ -58,7 +57,7 @@ const Header = () => {
                 <Link href={'/create-post'}>
                   <li className="flex gap-2 rounded-lg bg-orange-600 p-3 text-slate-100 font-bold justify-center hover:bg-opacity-85 transition-colors ease-in active:bg-green-900">
                     <Image
-                      src={'/images/create-post.png'}
+                      src={CreatePostIcon}
                       alt="Create Post"
                       width={23}
                       height={12}
@@ -69,7 +68,7 @@ const Header = () => {
 
                 <li className="relative">
                   <div className="rounded-full absolute -top-1 right-0 bg-red-600 w-4 h-4 text-xs text-center text-white">
-                    {user?.notification}
+                    {0}
                   </div>
                   <Image
                     src={'/images/bell.png'}
@@ -82,7 +81,7 @@ const Header = () => {
                 <Link href={'/dashboard'}>
                   <li>
                     <Image
-                      src={user?.imgUrl}
+                      src={user?.image! || '/images/profile-icon.jpg'}
                       alt="Profile"
                       width={50}
                       height={50}

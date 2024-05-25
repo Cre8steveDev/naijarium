@@ -2,11 +2,13 @@
 import Google from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import NextAuth from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
 
 import connectDB from './database/connection';
 import bcrypt from 'bcryptjs';
 import { User } from './database/models';
+import { IUser } from './database/models.types';
+import { AuthUser } from './types/types';
 
 // Auth handlers
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -26,24 +28,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           await connectDB();
 
           //@ts-ignore
-          const findUser = await User.findOne({ email: username });
+          const _user = await User.findOne({ email: username });
 
           //   Check if user with the email exists
-          if (!findUser) throw new Error('Wrong credentials');
+          if (!_user) throw new Error('Wrong credentials');
 
+          const findUser = _user as IUser;
           // Check if provided password matches what's stored in DB
           //@ts-ignore
           const isCorrect = bcrypt.compareSync(password, findUser.password);
-
-          console.log(`The State of the password comparison: ${isCorrect}`);
 
           //   If not correct throw new error. else, return the user
           if (!isCorrect) throw new Error('Wrong credentials');
 
           //   Filter data to store on auth
-          const { name, _id, email } = findUser;
+          const { username: name, _id, email, profile_photo } = findUser;
 
-          return { name, _id, email };
+          return { username: name, _id, email, profile_photo } as AuthUser;
 
           // Catch other errors
         } catch (err) {
@@ -53,4 +54,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     Google,
   ],
+  callbacks: {
+    async session({ session, token, user }) {
+      //@ts-ignore
+      session.user = token.user as AuthUser;
+      console.log(token);
+      console.log(session);
+      console.log(user);
+      return session;
+    },
+    async jwt({ token, user, trigger, session }) {
+      if (user) {
+        token.user = user;
+      }
+
+      if (trigger === 'update' && session) {
+        token = { ...token, user: session };
+        return token;
+      }
+
+      return token;
+    },
+  },
 });

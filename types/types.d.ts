@@ -15,3 +15,12 @@ export type TLoginForm = {
   email: string;
   password: string;
 };
+
+//{ username: name, _id, email, profile_photo }
+
+export type AuthUser = {
+  username: string;
+  _id: string | any;
+  email: string;
+  profile_photo: string;
+};

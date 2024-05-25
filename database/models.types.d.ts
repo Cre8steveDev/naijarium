@@ -2,12 +2,12 @@ import { Schema, Document } from 'mongoose';
 
 // Define the User schema
 export interface IUser extends Document {
-  _id?: Schema.Types.ObjectId;
+  _id?: Schema.Types.ObjectId | string;
   username: string;
   email: string;
-  password: string;
-  gender: string;
-  profile_photo: string;
+  password?: string;
+  gender?: string;
+  profile_photo?: string;
   posts?: Schema.Types.ObjectId[];
   comments?: Schema.Types.ObjectId[];
   friends?: Schema.Types.ObjectId[];
