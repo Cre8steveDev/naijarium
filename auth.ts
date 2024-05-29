@@ -58,9 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token, user }) {
       //@ts-ignore
       session.user = token.user as AuthUser;
-      console.log(token);
-      console.log(session);
-      console.log(user);
       return session;
     },
     async jwt({ token, user, trigger, session }) {
@@ -74,6 +71,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       return token;
+    },
+    authorized({ auth, request }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnProtected = request.nextUrl.pathname.startsWith('/create-post');
+
+      if (isOnProtected && !isLoggedIn) {
+        return Response.redirect(new URL('/login', request.nextUrl));
+      }
+      return true;
     },
   },
 });

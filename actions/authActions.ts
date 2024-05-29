@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn } from '@/_____';
+import { signIn } from '@/auth';
 
 export const handleSocialSignIn = async (formData: any) => {
   const socialAuthType = formData.get('auth') as string;
