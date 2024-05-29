@@ -44,11 +44,11 @@ const User = mongoose.models?.User
 // Create a model for Posts
 const Post = mongoose.models?.Post
   ? mongoose.models.Post
-  : mongoose.model('Post', postSchema);
+  : mongoose.model<IPost>('Post', postSchema);
 
 const Comment = mongoose.models?.Comment
   ? mongoose.models.Comment
-  : mongoose.model('Comment', commentSchema);
+  : mongoose.model<IComment>('Comment', commentSchema);
 
 // Export all the Models
 export { User, Comment, Post };

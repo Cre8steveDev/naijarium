@@ -14,7 +14,7 @@ const Header = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  if (user) console.log(user);
+  // if (user) console.log(user);
 
   return (
     <header className="w-screen p-5 bg-white shadow-md shadow-slate-100 sticky top-0 z-10">
@@ -43,8 +43,9 @@ const Header = () => {
                     <Image
                       src={SignUpIcon}
                       alt="Login"
-                      width={22}
-                      height={15}
+                      className="w-[22px] h-[22px]"
+                      // width={22}
+                      // height={15}
                     />
                     <p>Sign Up</p>
                   </li>
@@ -59,8 +60,9 @@ const Header = () => {
                     <Image
                       src={CreatePostIcon}
                       alt="Create Post"
-                      width={23}
-                      height={12}
+                      className="w-[25px] h-[25px]"
+                      // width={auto}
+                      // height={auto}
                     />
                     <p>Create Post</p>
                   </li>

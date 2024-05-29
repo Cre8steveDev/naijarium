@@ -49,6 +49,7 @@ const LoginPage: React.FC = () => {
       // Navigate to the Home Page on successful Login
       if (response?.ok && response?.error === null) {
         router.push('/');
+        router.refresh();
         return;
       }
 

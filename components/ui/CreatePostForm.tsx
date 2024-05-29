@@ -12,6 +12,8 @@ import { useRef, useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import FilePicker from './FilePicker';
 
+import axios from 'axios';
+
 import {
   Select,
   SelectContent,
@@ -19,10 +21,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { IUser } from '@/database/models.types';
 
 type TFormData = {
   category: string;
   title: string;
+  author_id?: string;
+  author_picture?: string;
+  author_username?: string;
   post_content?: string;
   post_picture1?: string;
   post_picture2?: string;
@@ -49,21 +57,43 @@ const CreatePostForm = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TFormData>();
   const editorRef = useRef(null);
   const mode = 'dark';
-  const [picture1, setPicture1] = useState<string>('');
-  const [picture2, setPicture2] = useState<string>('');
+  const [picture1, setPicture1] = useState('');
+  const [picture2, setPicture2] = useState('');
+
+  const { data } = useSession();
+  const router = useRouter();
+
+  const user = data?.user as IUser;
 
   const handleEditorChange = (a: string, editor: Editor) => {
     setValue('post_content', a);
   };
 
-  const onFormSubmit = (formData: TFormData) => {
+  const onFormSubmit = async (formData: TFormData) => {
+    if (!formData.category)
+      return toast.error('Please select a category for your post');
+
     formData['post_picture1'] = picture1;
     formData['post_picture2'] = picture2;
-    console.log(formData);
+    formData['author_id'] = String(user?._id!);
+    formData['author_username'] = user?.username;
+    formData['author_picture'] = user?.profile_photo;
+
+    try {
+      const response = await axios.post('/api/posts/create', formData);
+
+      toast.success(response.data.message);
+      setTimeout(() => router.back(), 2000);
+    } catch (error) {
+      console.log(error);
+      //@ts-ignore
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+    }
   };
 
   const handleFormErrors: SubmitErrorHandler<TFormData> = (error) => {
@@ -87,14 +117,14 @@ const CreatePostForm = () => {
     >
       <input
         placeholder="Enter a Descriptive Title for your Post"
-        maxLength={50}
+        maxLength={80}
         className="w-full p-3 rounded-lg text-[16px] focus:outline-none"
         type="text"
         {...register('title', { required: true, minLength: 15 })}
       />
 
       <Select
-        {...register('category', { required: true })}
+        // {...register('category', { required: true })}
         onValueChange={(value) => setValue('category', value)}
       >
         <SelectTrigger className="w-full text-[16px] focus:outline-none focus:border-none">
@@ -119,9 +149,10 @@ const CreatePostForm = () => {
           initialValue=""
           //@ts-ignore
           onEditorChange={handleEditorChange}
+          id="tinymce_99883"
           {...register('post_content', { required: true, minLength: 20 })}
           init={{
-            id: '10',
+            // id: '10',
             height: 400,
             menubar: false,
             plugins: [
@@ -141,9 +172,11 @@ const CreatePostForm = () => {
               'table',
               'emoticons',
             ],
+            // undo redo
             toolbar:
-              'undo redo | codesample emoticons | ' +
-              'bold italic forecolor | alignleft aligncenter ' +
+              'blocks | codesample emoticons | ' +
+              'bold italic | forecolor |' +
+              'alignleft aligncenter ' +
               'alignright | alignjustify | bullist numlist',
             // content_style: 'body { font-family:Inter; font-size:16px }',
             //   skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
@@ -169,7 +202,10 @@ const CreatePostForm = () => {
       {/* End Custom File Pickers */}
 
       {/* Submit Form */}
-      <button className="w-full bg-orange-600 p-4 rounded-md uppercase font-bold text-slate-50 btn-general">
+      <button
+        disabled={isSubmitting}
+        className="w-full bg-orange-600 p-4 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
+      >
         Submit Post
       </button>
       <Toaster />
