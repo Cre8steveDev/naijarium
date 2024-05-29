@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'max-h-768': { raw: '(max-height: 769px)' },
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
