@@ -48,16 +48,28 @@ export default function Home() {
   return (
     <FilterHomePageDataContext.Provider value={{ filterFeed, setFilterFeed }}>
       <main className="px-5 sm:p-8">
-        <section className="flex gap-3 mt-2 mb-4 justify-center md:justify-start">
-          <FilterButton name="featured" title="FEATURED">
+        <section className="flex justify-center md:justify-start gap-3 mt-2 mb-4">
+          <FilterButton
+            name="featured"
+            title="FEATURED"
+            setPageNum={setPageNumber}
+          >
             <IoNewspaperOutline className="hover:text-green-800" />
           </FilterButton>
 
-          <FilterButton name="new" title="NEW TOPICS">
+          <FilterButton
+            name="new"
+            title="NEW TOPICS"
+            setPageNum={setPageNumber}
+          >
             <IoNewspaperOutline className="hover:text-green-800" />
           </FilterButton>
 
-          <FilterButton name="favourite" title="FAVOURITE">
+          <FilterButton
+            name="favourite"
+            title="FAVOURITE"
+            setPageNum={setPageNumber}
+          >
             <IoNewspaperOutline className="hover:text-green-800" />
           </FilterButton>
         </section>
@@ -85,25 +97,25 @@ export default function Home() {
         {/* End of the Posts Card Rendering  */}
 
         {/* Pagination Button Begins Here*/}
-        <section className="flex justify-between mb-4 h-[120px]">
+        <section className="flex justify-between mb-4 h-[120px] text-sm">
           <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
             {totalPosts + ' Posts'}
           </p>
-          <div className="flex gap-2 self-start items-center">
+          <div className="flex items-center gap-2 self-start">
             <button
               disabled={pageNumber === 1}
               onClick={() => setPageNumber((prev) => --prev)}
-              className={`bg-orange-500 text-sm p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+              className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
             >
               Previous
             </button>
-            <p className="bg-green-400 text-sm w-[35px] text-center text-white p-2 rounded-lg">
+            <p className="bg-green-400 p-2 rounded-lg w-[35px] text-center text-white">
               {pageNumber}
             </p>
             <button
               disabled={pageNumber * 15 > totalPosts}
               onClick={() => setPageNumber((prev) => ++prev)}
-              className={`bg-orange-500 text-sm p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+              className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
             >
               Previous
             </button>

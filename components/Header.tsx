@@ -17,29 +17,29 @@ const Header = () => {
   // if (user) console.log(user);
 
   return (
-    <header className="w-screen p-5 bg-white shadow-md shadow-slate-100 sticky top-0 z-10">
-      <div className="w-full max-w-[1440px] mx-auto flex justify-between">
+    <header className="top-0 z-10 sticky bg-white shadow-md shadow-slate-100 p-5 w-screen">
+      <div className="flex justify-between mx-auto w-full max-w-[1440px]">
         <Link href={'/'}>
           <section className="flex items-center gap-3">
             <Image src={LogoIcon} alt="Logo" width={50} height={50} />
-            <h2 className=" text-4xl font-extrabold text-green-800">
+            <h2 className="font-extrabold text-4xl text-green-800">
               Naijarium
             </h2>
           </section>
         </Link>
 
         <nav className="">
-          <ul className="flex justify-between gap-6 items-center">
+          <ul className="flex justify-between items-center gap-6">
             {!user && (
               <>
                 <Link href={'/login'}>
-                  <li className="flex gap-2 w-[130px] rounded-lg bg-green-800 p-3 text-slate-100 font-bold justify-center hover:bg-opacity-70 transition-colors ease-in">
+                  <li className="flex justify-center gap-2 bg-green-800 hover:bg-opacity-70 p-3 rounded-lg w-[130px] font-bold text-slate-100 transition-colors ease-in">
                     <p>Sign In</p>
                   </li>
                 </Link>
 
                 <Link href={'/register'}>
-                  <li className="flex gap-2 w-[130px] rounded-lg bg-orange-600 p-3 text-slate-100 font-bold justify-center hover:bg-opacity-70 transition-colors ease-in">
+                  <li className="flex justify-center gap-2 bg-orange-600 hover:bg-opacity-70 p-3 rounded-lg w-[130px] font-bold text-slate-100 transition-colors ease-in">
                     <Image
                       src={SignUpIcon}
                       alt="Login"
@@ -56,18 +56,18 @@ const Header = () => {
             {user && (
               <>
                 <Link href={'/create-post'}>
-                  <li className="flex gap-2 rounded-lg bg-orange-600 p-2 sm:p-3 text-slate-100 font-bold justify-center hover:bg-opacity-85 transition-colors ease-in active:bg-green-900">
+                  <li className="flex justify-center gap-2 bg-orange-600 active:bg-green-900 hover:bg-opacity-85 p-2 sm:p-3 rounded-lg font-bold text-slate-100 transition-colors ease-in">
                     <Image
                       src={CreatePostIcon}
                       alt="Create Post"
                       className="w-[25px] h-[25px]"
                     />
-                    <p className="hidden sm:block">Create Post</p>
+                    <p className="sm:block hidden">Create Post</p>
                   </li>
                 </Link>
 
                 <li className="relative">
-                  <div className="rounded-full absolute -top-1 right-0 bg-red-600 w-4 h-4 text-xs text-center text-white">
+                  <div className="-top-1 right-0 absolute bg-red-600 rounded-full w-4 h-4 text-center text-white text-xs">
                     {0}
                   </div>
                   <Image
@@ -85,7 +85,7 @@ const Header = () => {
                       alt="Profile"
                       width={50}
                       height={50}
-                      className="rounded-full border-2 border-green-lighten"
+                      className="border-2 border-green-lighten rounded-full"
                     />
                   </li>
                 </Link>

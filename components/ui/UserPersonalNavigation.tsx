@@ -22,14 +22,14 @@ const UserPersonalNavigation = async () => {
   ];
 
   return (
-    <div className=" p-2 rounded-lg bg-white mt-5">
-      <p className="font-semibold text-gray-700 text-md p-2 mb-4">
+    <div className="bg-white mt-5 p-2 rounded-lg">
+      <p className="mb-4 p-2 font-semibold text-gray-700 text-md">
         Personal Navigation
       </p>
 
       {personalNavLinks.map((link) => (
         <Link key={link.title} href={link.route}>
-          <p className="w-full p-2 my-1 hover:bg-slate-100 transition ease-in cursor-pointer">
+          <p className="hover:bg-slate-100 my-1 p-2 w-full transition cursor-pointer ease-in">
             {link.title}
           </p>
         </Link>

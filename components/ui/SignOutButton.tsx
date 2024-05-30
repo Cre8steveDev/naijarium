@@ -23,7 +23,7 @@ const SignOutButton = () => {
       }}
     >
       <button
-        className="mx-auto text-center bg-red-500 text-white p-2 rounded-lg mt-5 text-sm hover:bg-opacity-85 transition ease-in-out w-full"
+        className="bg-red-500 hover:bg-opacity-85 mx-auto mt-5 p-2 rounded-lg w-full text-center text-sm text-white transition ease-in-out"
         type="submit"
       >
         Sign Out

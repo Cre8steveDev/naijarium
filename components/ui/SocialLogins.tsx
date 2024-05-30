@@ -13,11 +13,11 @@ const SocialLogins = () => {
   return (
     <form
       action={handleSocialSignIn}
-      className="flex flex-col gap-4 w-full  mt-4 text-xs"
+      className="flex flex-col gap-4 mt-4 w-full text-xs"
     >
       {/* {pathname === '/login' && (
         <a href="/register">
-          <p className="text-green-700 font-medium cursor-pointer mb-2 hover:opacity-85 transition ease-in-out">
+          <p className="hover:opacity-85 mb-2 font-medium text-green-700 transition cursor-pointer ease-in-out">
             NEW USER? Sign Up For a New Account.
           </p>
           <hr className="border-1 border-gray-300" />
@@ -26,7 +26,7 @@ const SocialLogins = () => {
 
       {pathname === '/register' && (
         <a href="/login">
-          <p className="text-green-800 font-medium cursor-pointer mb-2 hover:opacity-85 transition ease-in-out">
+          <p className="hover:opacity-85 mb-2 font-medium text-green-800 transition cursor-pointer ease-in-out">
             Already Have an Account? SIGN IN HERE.
           </p>
           <hr className="border-1 border-gray-300" />
@@ -36,12 +36,12 @@ const SocialLogins = () => {
       <hr className="border-1 border-gray-300" />
       <p>Login with your Social Accounts</p>
 
-      <div className="flex  max-w-[400px] w-[60%]  -mt-4">
+      <div className="flex -mt-4 w-[60%] max-w-[400px]">
         <button
           type="submit"
           name="auth"
           value="google"
-          className="p-2 text-white font-semibold rounded-lg hover:bg-opacity-75 transition ease-in hover:scale-90 hover:opacity-80"
+          className="hover:bg-opacity-75 hover:opacity-80 p-2 rounded-lg font-semibold text-white transition ease-in hover:scale-90"
         >
           <Image
             src={googleLogo}
@@ -54,7 +54,7 @@ const SocialLogins = () => {
           type="submit"
           name="auth"
           value="google"
-          className="p-2 text-white font-semibold rounded-lg hover:bg-opacity-75 transition ease-in hover:scale-90 hover:opacity-80"
+          className="hover:bg-opacity-75 hover:opacity-80 p-2 rounded-lg font-semibold text-white transition ease-in hover:scale-90"
         >
           <Image
             src={githubLogo}

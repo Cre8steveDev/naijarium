@@ -27,7 +27,7 @@ const SideBarNavigation = () => {
 
   return (
     <div className="bg-orange-400 p-2 rounded-lg">
-      <p className="font-semibold text-white text-sm p-2">
+      <p className="p-2 font-semibold text-sm text-white">
         Explore Other Categories
       </p>
       <Select onValueChange={handleOptionChange}>

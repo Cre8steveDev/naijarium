@@ -2,9 +2,9 @@ import { FaFireAlt } from 'react-icons/fa';
 
 const RightSideBarDesktop = () => {
   return (
-    <div className="col-span-2 px-5 py-8 sticky top-10 hidden lg:flex flex-col gap-10">
+    <div className="top-10 sticky lg:flex flex-col gap-10 hidden col-span-2 px-5 py-8">
       {/* Select Topics Panel */}
-      <aside className="w-full rounded-lg bg-white p-3">
+      <aside className="bg-white p-3 rounded-lg w-full">
         <div>
           <h3 className="flex items-center gap-2">
             <FaFireAlt className="hover:text-orange-600 transition ease-in" />{' '}
@@ -14,7 +14,7 @@ const RightSideBarDesktop = () => {
       </aside>
 
       {/* Mini User Dashboard */}
-      <aside className="w-full rounded-lg bg-white p-3">
+      <aside className="bg-white p-3 rounded-lg w-full">
         <div>
           <h3 className="flex items-center gap-2">Hello Stephen!</h3>
         </div>
