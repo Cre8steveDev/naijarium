@@ -99,7 +99,7 @@ const CreatePostForm = () => {
   const handleFormErrors: SubmitErrorHandler<TFormData> = (error) => {
     if (error.title)
       return toast.error(
-        'Please enter a valid title for your post. Must be greater than 15 characters'
+        'Please enter a valid title for your post. Must be between 40 - 120 characters'
       );
 
     if (error.category)
@@ -117,10 +117,11 @@ const CreatePostForm = () => {
     >
       <input
         placeholder="Enter a Descriptive Title for your Post"
-        maxLength={80}
+        maxLength={120}
+        minLength={40}
         className="w-full p-3 rounded-lg text-[16px] focus:outline-none"
         type="text"
-        {...register('title', { required: true, minLength: 15 })}
+        {...register('title', { required: true, minLength: 40 })}
       />
 
       <Select

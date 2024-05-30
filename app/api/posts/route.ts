@@ -8,40 +8,75 @@ import { IPost } from '@/database/models.types';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { pageNumber, filterType } = await req.json();
+  const { pageNumber, filtertype } = await req.json();
 
-  console.log(req);
-  console.log('HIT THE ENDPOINT');
-
-  const pageSize = 10;
+  const pageSize = 15;
   const skip = (pageNumber - 1) * pageSize;
 
   try {
     await connectDB();
 
-    if (filterType === 'featured') {
+    if (filtertype === 'featured') {
+      const totalPosts = await Post.countDocuments({ isFeatured: true });
+
       //@ts-ignore
-      const retrievedPosts = Post.find({ isFeatured: true })
+      const retrievedPosts = await Post.find({ isFeatured: true })
         .limit(pageSize)
+        .sort({ createdAt: -1 })
         .skip(skip);
 
-      console.log('=============================');
-      console.log(retrievedPosts);
+      return NextResponse.json({ retrievedPosts, totalPosts }, { status: 200 });
     }
 
-    return NextResponse.json(
-      [
+    const totalPosts = await Post.countDocuments();
+    if (filtertype === 'new') {
+      const retrievedPosts = await Post.aggregate([
         {
-          message: 'Your Post was Successfully Published',
+          $addFields: {
+            content: {
+              $substrBytes: ['$content', 0, 100],
+            },
+          },
         },
-      ],
-      { status: 200 }
-    );
+        {
+          $sort: { createdAt: -1 },
+        },
+        {
+          $skip: skip,
+        },
+        {
+          $limit: pageSize,
+        },
+      ]);
+
+      return NextResponse.json({ retrievedPosts, totalPosts }, { status: 200 });
+    }
+
+    if (filtertype === 'favourite') {
+      const retrievedPosts = await Post.aggregate([
+        {
+          $addFields: {
+            upvotesCount: { $size: '$upvotes' },
+          },
+        },
+        {
+          $sort: { upvotesCount: -1 },
+        },
+        {
+          $skip: skip,
+        },
+        {
+          $limit: pageSize,
+        },
+      ]);
+
+      return NextResponse.json({ retrievedPosts, totalPosts }, { status: 200 });
+    }
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       {
-        message: 'Oops! An Error Occurred. Please Try again later.',
+        error: true,
+        message: 'Unable to Retrieve Posts at this time. Try again later.',
       },
       { status: 500 }
     );
@@ -49,3 +84,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 }
 
 // export { POST };
+
+// if (filtertype === 'featured') {
+//   //@ts-ignore
+//   const retrievedPosts = await Post.find({ isFeatured: true })
+//     .limit(pageSize)
+//     .sort({ createdAt: -1 })
+//     .skip(skip);
+
+//   return NextResponse.json({ retrievedPosts }, { status: 200 });
+// }

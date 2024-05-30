@@ -56,15 +56,13 @@ const Header = () => {
             {user && (
               <>
                 <Link href={'/create-post'}>
-                  <li className="flex gap-2 rounded-lg bg-orange-600 p-3 text-slate-100 font-bold justify-center hover:bg-opacity-85 transition-colors ease-in active:bg-green-900">
+                  <li className="flex gap-2 rounded-lg bg-orange-600 p-2 sm:p-3 text-slate-100 font-bold justify-center hover:bg-opacity-85 transition-colors ease-in active:bg-green-900">
                     <Image
                       src={CreatePostIcon}
                       alt="Create Post"
                       className="w-[25px] h-[25px]"
-                      // width={auto}
-                      // height={auto}
                     />
-                    <p>Create Post</p>
+                    <p className="hidden sm:block">Create Post</p>
                   </li>
                 </Link>
 

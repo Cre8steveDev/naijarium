@@ -36,7 +36,9 @@ export default function RootLayout({
             <LeftSideBarDesktop />
 
             {/* Main Center Content */}
-            <div className="col-span-4 overflow-y-scroll">{children}</div>
+            <div className="col-span-8  md:col-span-5 lg:col-span-4 overflow-y-scroll">
+              {children}
+            </div>
 
             {/* Right Side Bar */}
             <RightSideBarDesktop />

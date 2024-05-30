@@ -2,7 +2,7 @@ import { FaFireAlt } from 'react-icons/fa';
 
 const RightSideBarDesktop = () => {
   return (
-    <div className="col-span-2 px-5 py-8 sticky top-10 flex flex-col gap-10">
+    <div className="col-span-2 px-5 py-8 sticky top-10 hidden lg:flex flex-col gap-10">
       {/* Select Topics Panel */}
       <aside className="w-full rounded-lg bg-white p-3">
         <div>

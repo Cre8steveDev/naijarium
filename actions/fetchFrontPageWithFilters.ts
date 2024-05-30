@@ -13,20 +13,30 @@ import axios from 'axios';
  */
 
 async function fetchFrontPageWithFilters(
-  filtertype: string,
-  pageNumber: number
-): Promise<IPost[] | null> {
+  filtertype: string = 'featured',
+  pageNumber: number = 1
+): Promise<{
+  data: IPost[];
+  totalPosts: any;
+} | null> {
   try {
     // Connect to Database
     await connectDB();
+    const data = { filtertype, pageNumber };
 
-    // const featuredPosts = await axios.post('http://localhost:3000/api/posts', {
-    //   filtertype,
-    //   pageNumber,
-    // });
+    const featuredPosts = await axios.post(
+      'http://localhost:3000/api/posts',
+      data
+    );
 
-    // console.log(featuredPosts);
-    return [];
+    // console.log(featuredPosts.data);
+
+    const returnedValue = {
+      data: featuredPosts.data.retrievedPosts as IPost[],
+      totalPosts: featuredPosts.data.totalPosts,
+    };
+
+    return returnedValue;
   } catch (error) {
     console.log(error);
   }
