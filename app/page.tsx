@@ -30,7 +30,7 @@ export default function Home() {
       });
 
       // setFrontPagePosts(currentpagePosts);
-      setLoadingFeed(false);
+      // setLoadingFeed(false);
     } catch (error) {
       setErrorLoadingFeed(true);
     }
@@ -68,7 +68,7 @@ export default function Home() {
 
           {frontPagePosts &&
             frontPagePosts.map((post) => (
-              <FeaturedPostCard key={post._id} post={post} />
+              <FeaturedPostCard key={String(post._id)} post={post} />
             ))}
         </section>
         <section className="h-[120px]"></section>

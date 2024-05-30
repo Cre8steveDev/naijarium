@@ -3,6 +3,7 @@
 import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
 import { IPost } from '@/database/models.types';
+import axios from 'axios';
 
 /***
  * Implement logic to fetch data from the database
@@ -12,28 +13,23 @@ import { IPost } from '@/database/models.types';
  */
 
 async function fetchFrontPageWithFilters(
-  filtertype: string = 'featured',
-  pageNumber: number = 1
+  filtertype: string,
+  pageNumber: number
 ): Promise<IPost[] | null> {
-  console.log(filtertype);
-  console.log(pageNumber);
-
   try {
     // Connect to Database
     await connectDB();
 
-    if (filtertype === 'featured') {
-      return [];
-    }
+    // const featuredPosts = await axios.post('http://localhost:3000/api/posts', {
+    //   filtertype,
+    //   pageNumber,
+    // });
 
-    if (filtertype === 'new') {
-      return [];
-    }
-
-    if (filtertype === 'favourite') {
-      return [];
-    }
-  } catch (error) {}
+    // console.log(featuredPosts);
+    return [];
+  } catch (error) {
+    console.log(error);
+  }
 
   return null;
 }
