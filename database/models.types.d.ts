@@ -24,6 +24,8 @@ export interface IPost extends Document {
   category: string;
   content: string;
   views: number;
+  post_picture1?: string;
+  post_picture2?: string;
   isFeatured?: boolean;
   isClosed?: boolean;
   createdAt?: Date;

@@ -1,21 +1,31 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import allPosts from '@/dummydata/dummyPostData';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-async function GET(
-  req: NextApiRequest,
-  { params }: { params: { id: string } }
-) {
+import { Post } from '@/database/models';
+import { IPost } from '@/database/models.types';
+import connectDB from '@/database/connection';
+
+async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   let { id } = params;
-  const postId = parseInt(id);
 
-  console.log('****************************************');
-  console.log(id);
-  console.log('****************************************');
+  try {
+    await connectDB();
+    //@ts-ignore
+    const findPost = await Post.findOne({ _id: id }).populate('comments');
 
-  return NextResponse.json({
-    post: allPosts.find((post) => post.postId === postId),
-  });
+    return NextResponse.json(findPost, { status: 200 });
+
+    // Catch Block Below
+  } catch (error: any & { message: string }) {
+    console.log(error.message);
+
+    return NextResponse.json(
+      {
+        error: true,
+        message: 'Sorry, the requested post cannot be found. Check URL.',
+      },
+      { status: 404 }
+    );
+  }
 }
 
 export { GET };

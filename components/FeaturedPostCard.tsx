@@ -2,10 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { FiEye } from 'react-icons/fi';
-import { LuMessagesSquare } from 'react-icons/lu';
-import { BiUpvote } from 'react-icons/bi';
 import { IPost } from '@/database/models.types';
+import PostStats from './ui/PostStats';
 
 type FeaturedPostCardProps = {
   post: IPost;
@@ -40,32 +38,24 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post }) => {
         <h2 className="font-bold text-[17px] text-green-900 hover:text-orange-600 transition ease-in">
           {post.title}
         </h2>
-        <p className="text-gray-600">{post.content.slice(3, 66) + '...'}</p>
+        <p className="text-gray-600 text-sm sm:text-md">
+          {post.content.slice(3, 66) + '...'}
+        </p>
       </Link>
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-2 sm:mt-4">
         <div className="flex gap-3">
           <Link href={`/posts/category/${post.category}`}>
-            <div className="bg-gray-200 hover:bg-opacity-80 p-2 rounded-md text-gray-700 text-xs">
+            <div className="bg-gray-200 hover:bg-opacity-80 p-1 sm:p-2 rounded-md text-gray-700 text-xs">
               {post.category}
             </div>
           </Link>
         </div>
 
-        <div className="flex gap-2 text-[14px] text-gray-500">
-          <div className="flex items-center gap-2">
-            <FiEye className="hover:text-orange-600" /> {post.views}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <LuMessagesSquare className="hover:text-orange-600" />{' '}
-            {post.comments?.length}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <BiUpvote className="hover:text-orange-600" />{' '}
-            {post.upvotes?.length}
-          </div>
-        </div>
+        <PostStats
+          views={post.views}
+          comments={post.comments!.length}
+          upvotes={post.upvotes?.length!}
+        />
       </div>
     </section>
   );

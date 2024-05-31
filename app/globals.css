@@ -90,3 +90,63 @@ html {
 body {
   -ms-overflow-style: none;
 }
+
+/* Markdown Start */
+.markdown a {
+  color: #1da1f2;
+}
+
+.markdown a,
+code {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+  padding: 2px;
+  color: #ff7000 !important;
+}
+
+.markdown pre {
+  display: grid;
+  width: 100%;
+}
+
+.markdown p {
+  margin-bottom: 12px;
+}
+
+.markdown pre code {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+
+  color: inherit !important;
+}
+
+button.copy-to-clipboard-button {
+  background-color: rgba(255, 255, 255, 0.479) !important;
+  margin-right: 10px !important;
+  padding: 8px !important;
+  color: black !important;
+}
+
+div > p > code {
+  background-color: rgb(173, 174, 175) !important;
+  border-radius: 4px;
+  color: black !important;
+  font-size: 0.85em !important;
+  /* padding: 2px !important; */
+}
+/* Markdown End */

@@ -1,14 +1,19 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 import Header from '../components/Header';
 // import Footer from './components/Footer';
 import LeftSideBarDesktop from '../components/LeftSideBarDesktop';
 import RightSideBarDesktop from '../components/RightSideBarDesktop';
 import AuthProvider from '@/lib/SessionProvider';
 
+// Import Stylesheets
+import './globals.css';
+import './prism.css';
+
+// Instantiate the Font for the body
 const inter = Inter({ subsets: ['latin'] });
 
+// DEfine the Metadata for the page
 export const metadata: Metadata = {
   title: 'Naijarium | Forum for well thinking patriotic Nigerians',
   description:
@@ -36,7 +41,7 @@ export default function RootLayout({
             <LeftSideBarDesktop />
 
             {/* Main Center Content */}
-            <div className="col-span-8  md:col-span-5 lg:col-span-4 overflow-y-scroll">
+            <div className="col-span-8  md:col-span-6 lg:col-span-4 overflow-y-scroll ">
               {children}
             </div>
 

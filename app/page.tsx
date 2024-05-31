@@ -97,30 +97,32 @@ export default function Home() {
         {/* End of the Posts Card Rendering  */}
 
         {/* Pagination Button Begins Here*/}
-        <section className="flex justify-between mb-4 h-[120px] text-sm">
-          <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
-            {totalPosts + ' Posts'}
-          </p>
-          <div className="flex items-center gap-2 self-start">
-            <button
-              disabled={pageNumber === 1}
-              onClick={() => setPageNumber((prev) => --prev)}
-              className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
-            >
-              Previous
-            </button>
-            <p className="bg-green-400 p-2 rounded-lg w-[35px] text-center text-white">
-              {pageNumber}
+        {frontPagePosts.length > 1 && (
+          <section className="flex justify-between mb-4 h-[120px] text-sm">
+            <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
+              {totalPosts + ' Posts'}
             </p>
-            <button
-              disabled={pageNumber * 15 > totalPosts}
-              onClick={() => setPageNumber((prev) => ++prev)}
-              className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
-            >
-              Previous
-            </button>
-          </div>
-        </section>
+            <div className="flex items-center gap-2 self-start">
+              <button
+                disabled={pageNumber === 1}
+                onClick={() => setPageNumber((prev) => --prev)}
+                className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+              >
+                Previous
+              </button>
+              <p className="bg-green-400 p-2 rounded-lg w-[35px] text-center text-white">
+                {pageNumber}
+              </p>
+              <button
+                disabled={pageNumber * 15 > totalPosts}
+                onClick={() => setPageNumber((prev) => ++prev)}
+                className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+              >
+                Next
+              </button>
+            </div>
+          </section>
+        )}
 
         {/* Pagination Button Ends Here */}
       </main>

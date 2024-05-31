@@ -12,7 +12,7 @@ import { auth } from '@/auth';
 const LeftSideBarDesktop = async () => {
   const session = await auth();
   return (
-    <div className="md:block top-0 sticky hidden md:col-span-3 lg:col-span-2 -mt-2 py-8 md:pl-5 h-full">
+    <div className="md:block top-0 sticky hidden md:col-span-2 lg:col-span-2 -mt-2 py-8 md:pl-5 h-full">
       <aside className="p-3 rounded-md w-full">
         <div>
           <SideBarNavigation />
