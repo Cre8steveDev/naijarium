@@ -5,7 +5,7 @@ import FilterButton from '../components/ui/FilterButton';
 import FilterHomePageDataContext from '../contexts/homepagecontext';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, LegacyRef, useRef } from 'react';
 import Link from 'next/link';
 import { fetchFeaturedPosts } from '../lib/fetchFeaturedPosts';
 import FeaturedPostCard from '../components/FeaturedPostCard';
@@ -21,6 +21,8 @@ export default function Home() {
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [errorLoadingFeed, setErrorLoadingFeed] = useState(false);
   // const [postsNotAvailable, setPostsNotAvailable] = useState(false);
+
+  const postContainerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     //  Set Up Page State
@@ -45,10 +47,21 @@ export default function Home() {
     // End of Data Fetching
   }, [filterFeed, pageNumber]);
 
+  // Scroll to top when next/prev page via pagination
+  useEffect(() => {
+    let timeout;
+    if (postContainerRef.current) {
+      const container = postContainerRef.current;
+      container.scrollTo(0, 0);
+    }
+
+    // return clearInterval(timeout);
+  }, [frontPagePosts]);
+
   return (
     <FilterHomePageDataContext.Provider value={{ filterFeed, setFilterFeed }}>
-      <main className="px-5 sm:p-8">
-        <section className="flex justify-center md:justify-start gap-3 mt-2 mb-4">
+      <main className="px-5 sm:p-8 h-[calc(100%-100px)]">
+        <section className="flex justify-center md:justify-start gap-3 sm:mt-2 sm:mb-4 mb-2">
           <FilterButton
             name="featured"
             title="FEATURED"
@@ -74,13 +87,14 @@ export default function Home() {
           </FilterButton>
         </section>
 
-        <section className="h-full">
+        <section className="overflow-y-scroll h-screen" ref={postContainerRef}>
           {/* Define main body */}
           {loadingFeed && (
             <div className="p-16 h-[80%]">
               <h1>Loading Posts...</h1>
             </div>
           )}
+
           {errorLoadingFeed && (
             <div className="p-16 h-[80%]">
               <h1>Sorry, there was an error loading the feed...</h1>
@@ -89,42 +103,46 @@ export default function Home() {
 
           {/* Map Through the Returned Posts and Render on the UI */}
           {frontPagePosts &&
-            frontPagePosts.map((post) => (
-              <FeaturedPostCard key={String(post._id)} post={post} />
+            frontPagePosts.map((post, index) => (
+              <FeaturedPostCard
+                key={String(post._id)}
+                post={post}
+                index={index}
+              />
             ))}
-        </section>
 
-        {/* End of the Posts Card Rendering  */}
+          {/* End of the Posts Card Rendering  */}
 
-        {/* Pagination Button Begins Here*/}
-        {frontPagePosts.length > 1 && (
-          <section className="flex justify-between mb-4 h-[120px] text-sm">
-            <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
-              {totalPosts + ' Posts'}
-            </p>
-            <div className="flex items-center gap-2 self-start">
-              <button
-                disabled={pageNumber === 1}
-                onClick={() => setPageNumber((prev) => --prev)}
-                className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
-              >
-                Previous
-              </button>
-              <p className="bg-green-400 p-2 rounded-lg w-[35px] text-center text-white">
-                {pageNumber}
+          {/* Pagination Button Begins Here*/}
+          {frontPagePosts.length > 1 && (
+            <section className="flex justify-between mb-10 h-[120px] text-sm">
+              <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
+                {totalPosts + ' Posts'}
               </p>
-              <button
-                disabled={pageNumber * 15 > totalPosts}
-                onClick={() => setPageNumber((prev) => ++prev)}
-                className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
-              >
-                Next
-              </button>
-            </div>
-          </section>
-        )}
+              <div className="flex items-center gap-2 self-start">
+                <button
+                  disabled={pageNumber === 1}
+                  onClick={() => setPageNumber((prev) => --prev)}
+                  className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+                >
+                  Previous
+                </button>
+                <p className="bg-green-400 p-2 rounded-lg w-[35px] text-center text-white">
+                  {pageNumber}
+                </p>
+                <button
+                  disabled={pageNumber * 15 > totalPosts}
+                  onClick={() => setPageNumber((prev) => ++prev)}
+                  className={`bg-orange-500 p-2 rounded-lg text-white disabled:bg-gray-300 disabled:cursor-not-allowed`}
+                >
+                  Next
+                </button>
+              </div>
+            </section>
+          )}
 
-        {/* Pagination Button Ends Here */}
+          {/* Pagination Button Ends Here */}
+        </section>
       </main>
     </FilterHomePageDataContext.Provider>
   );

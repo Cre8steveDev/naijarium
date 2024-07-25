@@ -48,7 +48,8 @@ export default function FilePicker({
           </div>
         ) : (
           <div className="flex gap-2 p-2 items-center bg-gray-300 rounded-md">
-            <FaFileImage className="" /> <p>{buttonTitle}</p>
+            <FaFileImage className="" />{' '}
+            <p className="text-xs sm:text-base">{buttonTitle}</p>
           </div>
         )}
       </button>

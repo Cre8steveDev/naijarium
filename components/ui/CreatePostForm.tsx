@@ -119,7 +119,7 @@ const CreatePostForm = () => {
         placeholder="Enter a Descriptive Title for your Post"
         maxLength={120}
         minLength={30}
-        className="w-full p-3 rounded-lg text-[16px] focus:outline-none"
+        className="w-full p-3 rounded-lg sm:text-[16px] focus:outline-none"
         type="text"
         {...register('title', { required: true, minLength: 30 })}
       />
@@ -128,7 +128,7 @@ const CreatePostForm = () => {
         // {...register('category', { required: true })}
         onValueChange={(value) => setValue('category', value)}
       >
-        <SelectTrigger className="w-full text-[16px] focus:outline-none focus:border-none">
+        <SelectTrigger className="w-full sm:text-[16px] focus:outline-none focus:border-none">
           <SelectValue placeholder="Select Post Category" />
         </SelectTrigger>
         <SelectContent>
@@ -176,7 +176,7 @@ const CreatePostForm = () => {
             // undo redo
             toolbar:
               'blocks | codesample emoticons | ' +
-              'bold italic | forecolor |' +
+              'bold italic forecolor ' +
               'alignleft aligncenter ' +
               'alignright | alignjustify | bullist numlist',
             // content_style: 'body { font-family:Inter; font-size:16px }',
@@ -205,7 +205,7 @@ const CreatePostForm = () => {
       {/* Submit Form */}
       <button
         disabled={isSubmitting}
-        className="w-full bg-orange-600 p-4 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
+        className="w-full bg-green-600 p-4 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
       >
         Submit Post
       </button>

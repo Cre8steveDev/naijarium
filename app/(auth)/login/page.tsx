@@ -18,6 +18,7 @@ import { TLoginForm } from '@/types/types';
 
 import imageSide from '@/public/images/login_girl.jpg';
 import SocialLogins from '@/components/ui/SocialLogins';
+import Link from 'next/link';
 
 // import { handleSocialSignIn } from '@/actions/authActions';
 
@@ -75,8 +76,17 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 sm:p-12 max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 overflow-y-scroll h-full md:h-fit">
-      <div className="w-[80%] md:w-full ">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 -mt-[100px] sm:mt-0 relative">
+      {/* Close Button on Desktop */}
+
+      <Link
+        href={'/'}
+        className="absolute top-5 right-5 bg-red-700 padding-2 rounded-full w-[40px] h-[40px] justify-center items-center text-center pt-2 font-bold text-white hover:opacity-80 cursor-pointer hidden sm:block"
+      >
+        <p>X</p>
+      </Link>
+
+      <div className="w-full sm:w-[80%] md:w-full">
         <Image
           src={imageSide}
           alt="Login Photo"
@@ -85,21 +95,21 @@ const LoginPage: React.FC = () => {
       </div>
 
       {/* Start Login Definition form from here */}
-      <div className="w-full p-12 pl-8 ">
+      <div className="w-full md:p-12 md:pl-8 ">
         <h2 className="flex flex-col mb-4 text-3xl font-bold text-green-800">
-          <span className="w-full">Oya na! Awa Happy Place</span>
+          <span className="w-full text-lg">Oya na! Awa Happy Place</span>
           <span className="w-full text-orange-400 text-2xl">
             Premium Gists and Convo.
           </span>
         </h2>
 
-        <p className="text-sm   w-full max-w-[400px]">
+        <p className="text-sm w-full max-w-[400px]">
           Login to your account to connect with the trybe.
         </p>
 
         {/* User Registration Form */}
         <form
-          className="flex flex-col w-full gap-5 mt-6"
+          className="flex flex-col w-full gap-2 md:gap-5 md:mt-6 mt-2"
           onSubmit={handleSubmit(handleFormSubmit, handleFormErrors)}
         >
           <input
@@ -132,6 +142,18 @@ const LoginPage: React.FC = () => {
             <p> {formLoading ? 'Logging In. 😉' : 'Login In!'}</p>
           </button>
         </form>
+
+        {/* Redirect to Registration Page */}
+        <div>
+          <Link href={'/register'}>
+            <p className="text-center sm:text-left font-bold mt-5 text-slate-600 text-sm hidden sm:block">
+              Don't have an account yet?{' '}
+              <span className="text-green-600">Sign Up Now</span>
+            </p>
+          </Link>
+        </div>
+
+        {/* Social Login */}
         <SocialLogins />
       </div>
 

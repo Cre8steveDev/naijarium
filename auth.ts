@@ -83,3 +83,64 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+/**
+ * 
+ import { User } from './database/models';
+import connectDB from './database/connection';
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  // ... your existing configuration ...
+
+  callbacks: {
+    // ... your existing callbacks ...
+
+    async signIn({ user, account, profile, credentials }) {
+      // For Credentials provider
+      if (account.provider === 'credentials') {
+        // The user object here is already verified by your authorize function
+        // You don't need to do anything extra here for Credentials
+        return true;
+      }
+
+      // For Google provider
+      if (account.provider === 'google') {
+        try {
+          await connectDB();
+
+          // Check if the user already exists in your database
+          let dbUser = await User.findOne({ email: user.email });
+
+          if (!dbUser) {
+            // If the user doesn't exist, create a new user
+            dbUser = await User.create({
+              email: user.email,
+              username: user.name,
+              profile_photo: user.image,
+              // Add any other fields you want to store
+            });
+          } else {
+            // If the user exists, you might want to update their information
+            dbUser.username = user.name;
+            dbUser.profile_photo = user.image;
+            await dbUser.save();
+          }
+
+          // You can add the database user id to the user object if needed
+          user.dbId = dbUser._id;
+
+          return true;
+        } catch (error) {
+          console.error('Error saving user to database:', error);
+          return false;
+        }
+      }
+
+      // For any other providers you might add in the future
+      return true;
+    },
+
+    // ... other callbacks ...
+  },
+});
+ */

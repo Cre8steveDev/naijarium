@@ -8,6 +8,8 @@ type FilterButtonProps = {
   name: string;
   title: string;
   setPageNum: Dispatch<SetStateAction<number>>;
+  subPageFilter?: Dispatch<SetStateAction<string>>;
+  subPageFilterValue?: string;
 };
 
 const FilterButton: React.FC<FilterButtonProps> = ({
@@ -15,26 +17,37 @@ const FilterButton: React.FC<FilterButtonProps> = ({
   name,
   title,
   setPageNum,
+  subPageFilter,
+  subPageFilterValue,
 }) => {
   const contextValue = useFetchData();
+  let newFilterFeed: string;
+  let newSetFilterFeed: Dispatch<SetStateAction<string>>;
 
-  if (!contextValue) return null;
-
-  const { filterFeed, setFilterFeed } = contextValue;
+  if (contextValue) {
+    const { filterFeed, setFilterFeed } = contextValue;
+    newFilterFeed = filterFeed;
+    newSetFilterFeed = setFilterFeed;
+  } else {
+    newFilterFeed = subPageFilterValue!;
+    newSetFilterFeed = subPageFilter!;
+  }
 
   return (
     <button
       className={`${
-        filterFeed === name
+        newFilterFeed === name
           ? 'bg-green-800 hover:bg-white text-slate-100 hover:text-green-800'
           : 'bg-white hover:bg-green-600 text-green-800 hover:text-slate-100'
-      } flex gap-2 items-center p-2 text-xs font-semibold transition rounded-md`}
+      } flex gap-1 sm:gap-2 items-center p-2 text-[10px] sm:text-xs font-semibold transition rounded-md`}
       onClick={() => {
         setPageNum(1);
-        setFilterFeed(name);
+
+        if (!subPageFilter) newSetFilterFeed(name);
+        else subPageFilter(name);
       }}
     >
-      {children}
+      <div>{children}</div>
       {title}
     </button>
   );

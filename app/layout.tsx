@@ -30,18 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/images/logo.png" type="image/png" />
-      <body className={inter.className + ' bg-gray-100 overflow-hidden'}>
+      <body className={inter.className + ' bg-gray-100 relative'}>
         <AuthProvider>
           {/* Header Component  */}
           <Header />
 
           {/* Container holding body and side bars */}
-          <div className="grid grid-cols-8 w-full max-w-[1440px] mx-auto bg-gray-100 h-screen mt-4">
+          <div className="grid grid-cols-8 w-full max-w-[1440px] mx-auto bg-gray-100 m-[100px] md:mt-4">
             {/* Left Side Bar */}
             <LeftSideBarDesktop />
 
             {/* Main Center Content */}
-            <div className="col-span-8  md:col-span-6 lg:col-span-4 overflow-y-scroll ">
+            <div className="col-span-8  md:col-span-6 lg:col-span-4 overflow-y-scroll overflow-x-hidden -mt-4 sm:mt-0">
               {children}
             </div>
 

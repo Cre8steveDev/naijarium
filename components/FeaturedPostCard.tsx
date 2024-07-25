@@ -4,12 +4,14 @@ import Link from 'next/link';
 
 import { IPost } from '@/database/models.types';
 import PostStats from './ui/PostStats';
+import CategoryTag from './ui/CategoryTag';
 
 type FeaturedPostCardProps = {
   post: IPost;
+  index: number;
 };
 
-const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post }) => {
+const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post, index }) => {
   const date = new Date(post.createdAt!);
   const monthInWord = date.toLocaleString('default', { month: 'long' });
 
@@ -17,8 +19,13 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post }) => {
     date.getMinutes() < 10 ? '0' : ''
   }${date.getMinutes()}`;
 
+  // Return JSX
   return (
-    <section className="bg-white shadow-md mb-4 p-4 rounded-md">
+    <section
+      className={`${
+        index % 2 === 0 ? 'bg-white' : 'bg-green-100 bg-opacity-65'
+      } shadow-md mb-4 p-4 rounded-md`}
+    >
       <Link href={`/post/${post._id}`}>
         <div className="flex gap-3 mb-2">
           <div className="w-[40px]">
@@ -31,25 +38,21 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post }) => {
             />
           </div>
           <div className="text-gray-800">
-            <p>{post.author_username}</p>
-            <p className="text-xs">{formattedDate}</p>
+            <p className="font-bold text-gray-600">{post.author_username}</p>
+            <p className="text-[10px] sm:text-xs">{formattedDate}</p>
           </div>
         </div>
-        <h2 className="font-bold text-[17px] text-green-900 hover:text-orange-600 transition ease-in">
+
+        <h2 className="font-bold text-[14px] sm:text-lg text-green-900 hover:text-orange-600 transition ease-in">
           {post.title}
         </h2>
-        <p className="text-gray-600 text-sm sm:text-md">
-          {post.content.slice(3, 66) + '...'}
+        <p className="text-gray-600 text-xs sm:text-md">
+          {post.content.slice(3, 100) + '...'}
         </p>
       </Link>
+
       <div className="flex justify-between mt-2 sm:mt-4">
-        <div className="flex gap-3">
-          <Link href={`/posts/category/${post.category}`}>
-            <div className="bg-gray-200 hover:bg-opacity-80 p-1 sm:p-2 rounded-md text-gray-700 text-xs">
-              {post.category}
-            </div>
-          </Link>
-        </div>
+        <CategoryTag category={post.category} />
 
         <PostStats
           views={post.views}

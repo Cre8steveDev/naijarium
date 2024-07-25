@@ -9,6 +9,8 @@ import ParseHTMLToDom from '../../../../components/ui/ParseHTMLToDom';
 import Image from 'next/image';
 import PostStats from '../../../../components/ui/PostStats';
 import PostPictureComp from '../../../../components/ui/PostPictureComp';
+import CategoryTag from '../../../../components/ui/CategoryTag';
+import Link from 'next/link';
 
 const PostViewPage: React.FC = () => {
   const { id } = useParams();
@@ -60,14 +62,20 @@ const PostViewPage: React.FC = () => {
     return <p>Post not found</p>;
   }
 
+  // Return JSX
   return (
     <main className="px-5 md:px-10 py-8 cursor-default bg-white rounded-xl  sm:mt-[2.15rem]">
-      <h1 className="text-green-900 text-3xl font-extrabold">{post?.title}</h1>
+      <h1 className="text-green-900 text-xl sm:text-3xl font-extrabold">
+        {post?.title}
+      </h1>
 
       {/* Define Post Stats Here */}
       <div className="w-full flex justify-between my-3">
         {/* User name, date created */}
-        <div className="flex items-center ">
+        <Link
+          href={`/user/profile/${post?.author_username}`}
+          className="flex items-center font-bold hover:opacity-65 transition-opacity ease-in-out"
+        >
           <Image
             src={post?.author_picture!}
             alt={post?.author_username!}
@@ -75,14 +83,17 @@ const PostViewPage: React.FC = () => {
             height={35}
             className="rounded-full"
           />
-          <p>@{post?.author_username}</p>
-        </div>
+          <p className="text-xs sm:text-lg">@{post?.author_username}</p>
+        </Link>
         {/* Post stats */}
-        <PostStats
-          views={post?.views!}
-          comments={post?.comments?.length!}
-          upvotes={post?.upvotes?.length!}
-        />
+        <div className="flex gap-3 items-center">
+          <PostStats
+            views={post?.views!}
+            comments={post?.comments?.length!}
+            upvotes={post?.upvotes?.length!}
+          />
+          <CategoryTag category={post?.category + ''} />
+        </div>
       </div>
       <hr className="my-2" />
       {/* Insert Content here */}

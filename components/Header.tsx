@@ -14,36 +14,34 @@ const Header = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
 
-  // if (user) console.log(user);
-
   return (
-    <header className="top-0 z-10 sticky bg-white shadow-md shadow-slate-100 p-5 w-screen">
-      <div className="flex justify-between mx-auto w-full max-w-[1440px]">
+    <header className="top-0 z-10 fixed md:sticky bg-white shadow-md shadow-slate-100 px-5 py-2 md:px-5 md:py-5 w-screen">
+      <div className="flex justify-between items-center mx-auto w-full max-w-[1440px]">
         <Link href={'/'}>
           <section className="flex items-center gap-3">
             <Image src={LogoIcon} alt="Logo" width={50} height={50} />
-            <h2 className="font-extrabold text-4xl text-green-800">
+            <h2 className="font-extrabold text-xl md:text-4xl text-green-800">
               Naijarium
             </h2>
           </section>
         </Link>
 
         <nav className="">
-          <ul className="flex justify-between items-center gap-6">
+          <ul className="flex justify-between items-center gap-2 md:gap-6 pr-2">
             {!user && (
               <>
                 <Link href={'/login'}>
-                  <li className="flex justify-center gap-2 bg-green-800 hover:bg-opacity-70 p-3 rounded-lg w-[130px] font-bold text-slate-100 transition-colors ease-in">
+                  <li className="flex justify-center gap-2 bg-green-800 hover:bg-opacity-70 text-xs sm:text-lg w-[60px] p-1 md:p-3 rounded-lg md:w-[130px] font-bold text-slate-100 transition-colors ease-in">
                     <p>Sign In</p>
                   </li>
                 </Link>
 
                 <Link href={'/register'}>
-                  <li className="flex justify-center gap-2 bg-orange-600 hover:bg-opacity-70 p-3 rounded-lg w-[130px] font-bold text-slate-100 transition-colors ease-in">
+                  <li className="flex justify-center gap-2 bg-orange-600 hover:bg-opacity-70 text-xs sm:text-lg w-[70px] p-1 md:p-3 rounded-lg md:w-[130px] font-bold text-slate-100 transition-colors ease-in">
                     <Image
                       src={SignUpIcon}
                       alt="Login"
-                      className="w-[22px] h-[22px]"
+                      className="w-[22px] h-[22px] hidden sm:block"
                       // width={22}
                       // height={15}
                     />
@@ -60,9 +58,9 @@ const Header = () => {
                     <Image
                       src={CreatePostIcon}
                       alt="Create Post"
-                      className="w-[25px] h-[25px]"
+                      className="sm:w-[25px] sm:h-[25px] w-[15px] h-[15px]"
                     />
-                    <p className="sm:block hidden">Create Post</p>
+                    <p className="text-[10px] sm:text-base">Create Post</p>
                   </li>
                 </Link>
 
@@ -78,7 +76,7 @@ const Header = () => {
                   />
                 </li>
 
-                <Link href={'/dashboard'}>
+                <Link href={'/dashboard'} className="hidden md:block">
                   <li>
                     <Image
                       src={user?.image! || '/images/profile-icon.jpg'}

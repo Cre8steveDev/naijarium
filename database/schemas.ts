@@ -30,6 +30,8 @@ export const postSchema = new mongoose.Schema(
     author_username: { type: String, trim: true },
     author_picture: { type: String, trim: true },
     category: { type: String, required: true, trim: true },
+    post_picture1: String,
+    post_picture2: String,
     isFeatured: { type: Boolean, default: false },
     isClosed: { type: Boolean, default: false },
     content: { type: String, required: true, trim: true },

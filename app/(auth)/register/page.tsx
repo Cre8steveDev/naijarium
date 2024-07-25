@@ -16,6 +16,7 @@ import { TRegisterForm } from '@/types/types';
 
 import imageSide from '@/public/images/login_img.jpg';
 import SocialLogins from '@/components/ui/SocialLogins';
+import Link from 'next/link';
 
 // import { handleSocialSignIn } from '@/actions/authActions';
 
@@ -94,8 +95,18 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 sm:p-12 max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 overflow-y-scroll h-full md:h-fit">
-      <div className="w-[80%] md:w-full ">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 mt-12 sm:mt-0 relative">
+      {/* Close Button on Desktop */}
+
+      <Link
+        href={'/'}
+        className="absolute top-5 right-5 bg-red-700 padding-2 rounded-full w-[40px] h-[40px] justify-center items-center text-center pt-2 font-bold text-white hover:opacity-80 cursor-pointer hidden sm:block"
+      >
+        <p>X</p>
+      </Link>
+
+      {/* Form Body Container */}
+      <div className="w-full sm:w-[80%] md:w-full">
         <Image
           src={imageSide}
           alt="Login Photo"
@@ -104,22 +115,24 @@ const RegisterPage: React.FC = () => {
       </div>
 
       {/* Start Login Definition form from here */}
-      <div className="w-full p-12 pl-8 ">
-        <h2 className="flex flex-col mb-4 text-3xl font-bold text-green-800">
-          <span className="w-full">Welcome to Naijarium!</span>
-          <span className="w-full text-orange-400 text-2xl">
+      <div className="w-full md:p-12 md:pl-8 ">
+        <h2 className="flex flex-col sm:mb-4 sm:text-3xl font-bold text-green-800">
+          <span className="w-full text-center sm:text-left">
+            Welcome to Naijarium!
+          </span>
+          <span className="w-full text-orange-400 text-3xl font-black sm:text-2xl text-center sm:text-left">
             The New Trybe.
           </span>
         </h2>
 
-        <p className="text-sm   w-full max-w-[400px]">
-          Please fill out the information to get an user account and explore all
+        <p className="text-xs sm:text-sm  sm:text-left text-center w-full max-w-[400px]">
+          Please fill out the information to get a user account and explore all
           the features of the hood.
         </p>
 
         {/* User Registration Form */}
         <form
-          className="flex flex-col w-full gap-5 mt-6"
+          className="flex flex-col w-full gap-2 md:gap-5 md:mt-6 mt-2"
           onSubmit={handleSubmit(handleFormSubmit, handleFormErrors)}
         >
           <input
@@ -169,10 +182,10 @@ const RegisterPage: React.FC = () => {
                 name="gender"
                 value="male"
                 required
-                className="mr-3 scale-[150%] cursor-pointer"
+                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer"
                 onChange={() => setValue('gender', 'male')}
               />
-              <label htmlFor="male" className="text-[16px]">
+              <label htmlFor="male" className="text-[16px] -mt-2">
                 Male
               </label>
             </div>
@@ -183,10 +196,10 @@ const RegisterPage: React.FC = () => {
                 name="gender"
                 required
                 value="female"
-                className="mr-3 scale-[150%] cursor-pointer"
+                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer"
                 onChange={() => setValue('gender', 'female')}
               />
-              <label htmlFor="female" className="text-[16px]">
+              <label htmlFor="female" className="text-[16px] -mt-2">
                 Female
               </label>
             </div>
@@ -203,6 +216,17 @@ const RegisterPage: React.FC = () => {
             <p> {formLoading ? 'Creating Your Account. 😉' : 'Sign Up Now!'}</p>
           </button>
         </form>
+
+        {/* Redirect to Sign In Page */}
+        <div>
+          <Link href={'/login'}>
+            <p className="text-center sm:text-left font-bold mt-2 text-slate-600 text-sm hidden sm:block">
+              Already have an account? Sign In
+            </p>
+          </Link>
+        </div>
+
+        {/* Social Logins */}
         <SocialLogins />
       </div>
 
