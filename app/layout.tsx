@@ -36,7 +36,7 @@ export default function RootLayout({
           <Header />
 
           {/* Container holding body and side bars */}
-          <div className="grid grid-cols-8 w-full max-w-[1440px] mx-auto bg-gray-100 m-[100px] md:mt-4">
+          <div className="grid grid-cols-8 w-full max-w-[1440px] mx-auto bg-gray-100 m-[100px] md:mt-4 overflow-y-hidden">
             {/* Left Side Bar */}
             <LeftSideBarDesktop />
 

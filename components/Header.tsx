@@ -19,7 +19,7 @@ const Header = () => {
       <div className="flex justify-between items-center mx-auto w-full max-w-[1440px]">
         <Link href={'/'}>
           <section className="flex items-center gap-3">
-            <Image src={LogoIcon} alt="Logo" width={50} height={50} />
+            <Image src={LogoIcon} alt="Logo" width={50} height={50} priority />
             <h2 className="font-extrabold text-xl md:text-4xl text-green-800">
               Naijarium
             </h2>

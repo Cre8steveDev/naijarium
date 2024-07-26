@@ -52,11 +52,11 @@ export const userSchema: Schema = new Schema(
     profile_photo: { type: String, default: '/images/profile-icon.jpg' },
     isSuspended: { type: Boolean, default: false },
     suspensionTimeExpiration: { type: Date, default: Date.now },
-    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    likedPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     upvotedPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+    // posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+    // comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
+    // likedPosts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   { timestamps: true }
 );
