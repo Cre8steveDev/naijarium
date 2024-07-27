@@ -23,12 +23,16 @@ async function voteOnPost(id: string, userId: string) {
     }
 
     // @ts-ignore
-    const result = await Post.findByIdAndUpdate(id, updateOperation, {
+    await Post.findByIdAndUpdate(id, updateOperation, {
       new: true,
     });
 
+    // @ts-ignore
+    const result = await Post.findById(id).populate('comments');
+
     return JSON.stringify(result);
   } catch (error) {
+    console.log(error);
     return JSON.stringify(null);
   }
 }

@@ -41,7 +41,11 @@ const ParseHTMLToDom = ({ pageContent }: Props) => {
     Prism.highlightAll();
   }, []);
 
-  return <div className="markdown w-full min-w-full">{parse(pageContent)}</div>;
+  return (
+    <div className="markdown w-full min-w-full text-[14px] sm:text-base">
+      {parse(pageContent)}
+    </div>
+  );
 };
 
 export default ParseHTMLToDom;

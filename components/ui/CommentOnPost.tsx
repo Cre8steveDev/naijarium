@@ -99,17 +99,21 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
   return (
     <div className="w-full h-screen absolute top-0 left-0 p-5 bg-slate-200 backdrop-blur-lg bg-opacity-70">
       {/* Style Close Button */}
-      <button onClick={() => setShowCommentBox(false)}>
+      <button
+        onClick={() => setShowCommentBox(false)}
+        className="flex text-xs items-center gap-2"
+      >
         <FaWindowClose
-          className="text-red-400 bg-red-600 textlg] rounded-lg hover:opacity-50 cursor-pointer transitionopacity ease-in-out"
+          className="text-red-400 bg-red-600 rounded-lg hover:opacity-50 cursor-pointer transitionopacity ease-in-out"
           fontSize={24}
-        />
+        />{' '}
+        Close
       </button>
 
       {/* JSX of the editor  */}
-      <div className="mt-6 text-center w-full text-sm p-3">
-        <h2 className=" font-bold text-gray-700 ">Replying To Post:</h2>
-        <p className="text-gray-700 text-xl font-bold">{postTitle}</p>
+      <div className="md:mt-6 text-center w-full text-sm p-3">
+        <h2 className=" sm:font-bold text-gray-700 ">Replying To Post:</h2>
+        <p className="text-gray-700 sm:text-xl font-bold">{postTitle}</p>
       </div>
 
       {/* Editing Form here */}
@@ -156,10 +160,10 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
       </div>
 
       {/* Custom File Pickers  */}
-      <p className=" text-xs text-left ml-2">
+      <p className=" text-xs text-left ml-2 mt-3">
         File Upload is Optional. Keep files under 2mb
       </p>
-      <div className="flex gap-5 w-full p-2 overflow-x-hidden">
+      <div className="flex gap-5 w-full p-2 overflow-x-hidden mb-3">
         <FilePicker
           setPictureUrl={setPicture1}
           buttonTitle="Select Picture 01"
@@ -174,9 +178,9 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
       <button
         onClick={handleSubmitComment}
         disabled={isSubmitting}
-        className="w-full bg-green-600 p-4 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
+        className="w-full bg-green-600 p-2 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
       >
-        Submit Post
+        {isSubmitting ? 'Please wait...' : 'Submit Post'}
       </button>
     </div>
   );

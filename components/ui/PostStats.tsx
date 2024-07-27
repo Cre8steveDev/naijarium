@@ -12,7 +12,7 @@ type StatProps = {
 
 const PostStats = ({ views, comments, upvotes }: StatProps) => {
   return (
-    <div className="flex gap-2 text-[14px] text-gray-500 cursor-default">
+    <div className="flex gap-2 text-[12px] sm:text-[14px] text-gray-500 cursor-default">
       <div className="flex items-center gap-2">
         <FiEye className="hover:text-orange-600" /> {views}
       </div>

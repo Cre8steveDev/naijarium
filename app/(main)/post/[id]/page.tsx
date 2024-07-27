@@ -18,6 +18,9 @@ import voteOnPost from '@/actions/Posts/voteOnPost';
 import CommentOnPostComponent from '@/components/ui/CommentOnPost';
 import { User } from 'next-auth';
 import CommentsComponent from '@/components/CommentsComponent';
+import LoadingPage from '@/components/ui/LoadingPage';
+import ContentNotFound from '@/components/ui/ContentNotFound';
+import DateComp from '@/components/ui/DateComp';
 
 // Define Page Component
 const PostViewPage: React.FC = () => {
@@ -89,24 +92,24 @@ const PostViewPage: React.FC = () => {
   // Returning UI based on status of app
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingPage text="Loading Post..." />;
   }
 
   if (error.status) {
-    return <p>Error: {error.message}</p>;
+    toast.error(error.message);
+    return <ContentNotFound text="Invalid Post Url. Post not found." />;
   }
 
   if (!post && !isLoading) {
-    return <p>Post not found</p>;
+    return <ContentNotFound text="Invalid Post Url. Post not found." />;
   }
 
   // Return JSX
   return (
-    <main className="px-5 md:px-10 py-8 cursor-default bg-white rounded-xl  sm:mt-[2.15rem] relative min-h-[700px] overflow-y-scroll">
+    <main className="px-5 md:px-10 py-8 cursor-default bg-white rounded-xl  sm:mt-[2.15rem] relative min-h-[700px] overflow-y-scroll mx-3">
       <h1 className="text-green-900 text-xl sm:text-3xl font-extrabold">
         {post?.title}
       </h1>
-
       <Link
         href={`/user/profile/${post?.author_username}`}
         className="flex items-center font-bold hover:opacity-65 transition-opacity ease-in-out sm:hidden"
@@ -120,7 +123,6 @@ const PostViewPage: React.FC = () => {
         />
         <p className="text-xs sm:text-lg">@{post?.author_username}</p>
       </Link>
-
       {/* Define Post Stats Here */}
       <div className="w-full flex justify-between my-3">
         {/* User name, date created */}
@@ -147,14 +149,21 @@ const PostViewPage: React.FC = () => {
             upvotes={post?.upvotes?.length!}
           />
           <CategoryTag category={post?.category + ''} />
+
+          <div className="sm:hidden">
+            <DateComp time={post?.createdAt + ''} />
+          </div>
         </div>
       </div>
 
-      <hr className="my-2" />
+      <div className="hidden sm:block">
+        <DateComp time={post?.createdAt + ''} />
+      </div>
 
+      {/* Separator */}
+      <hr className="my-2" />
       {/* Insert Content here */}
       <ParseHTMLToDom pageContent={post?.content || ''} />
-
       {/* Picture View Overlay Here */}
       {post?.post_picture1 !== '' ||
         (post?.post_picture2 !== '' && (
@@ -172,13 +181,10 @@ const PostViewPage: React.FC = () => {
             />
           </div>
         ))}
-
       {/* Picture View Model Here  */}
       {showPicturePreview && <div></div>}
-
       {/* Section Divider */}
       <hr className="border-1 border-slate-400 opacity-70" />
-
       {/* Take Action on Post */}
       {status === 'authenticated' && (
         <div className="flex gap-3 mt-3">
@@ -220,12 +226,16 @@ const PostViewPage: React.FC = () => {
           )}
         </div>
       )}
-
       {/* Section Divider */}
       <hr className="border-1 border-slate-400 opacity-70 my-3" />
-
       {/* Render all Comments for the Post  */}
-      <CommentsComponent comments={post?.comments || []} />
+      {post && (
+        <CommentsComponent
+          // @ts-ignore
+          comments={post?.comments || []}
+          currentUserId={status === 'authenticated' ? user._id : 'nil'}
+        />
+      )}
 
       {/* Post Comment*/}
       {showCommentBox && (

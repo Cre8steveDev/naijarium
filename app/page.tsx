@@ -12,6 +12,8 @@ import FeaturedPostCard from '../components/FeaturedPostCard';
 import { IPost } from '@/database/models.types';
 import fetchFrontPageWithFilters from '@/actions/fetchFrontPageWithFilters';
 import toast from 'react-hot-toast';
+import LoadingPage from '@/components/ui/LoadingPage';
+import ContentNotFound from '@/components/ui/ContentNotFound';
 
 export default function Home() {
   const [filterFeed, setFilterFeed] = useState('featured');
@@ -60,7 +62,7 @@ export default function Home() {
 
   return (
     <FilterHomePageDataContext.Provider value={{ filterFeed, setFilterFeed }}>
-      <main className="px-5 sm:p-8 h-[calc(100%-100px)]">
+      <main className="px-5 sm:p-8 ">
         <section className="flex justify-center md:justify-start gap-3 sm:mt-2 sm:mb-4 mb-2">
           <FilterButton
             name="featured"
@@ -89,16 +91,10 @@ export default function Home() {
 
         <section className="overflow-y-scroll h-screen" ref={postContainerRef}>
           {/* Define main body */}
-          {loadingFeed && (
-            <div className="p-16 h-[80%]">
-              <h1>Loading Posts...</h1>
-            </div>
-          )}
+          {loadingFeed && <LoadingPage text="Loading Feed..." />}
 
           {errorLoadingFeed && (
-            <div className="p-16 h-[80%]">
-              <h1>Sorry, there was an error loading the feed...</h1>
-            </div>
+            <ContentNotFound text="There was an error loading feed.." />
           )}
 
           {/* Map Through the Returned Posts and Render on the UI */}
