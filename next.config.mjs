@@ -1,14 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        mongoose: false,
-      };
-    }
-    return config;
-  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'picsum.photos', pathname: '**' },
@@ -27,3 +18,5 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+// lh3.googleusercontent.com
