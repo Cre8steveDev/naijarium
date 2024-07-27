@@ -240,6 +240,7 @@ const PostViewPage: React.FC = () => {
       {/* Post Comment*/}
       {showCommentBox && (
         <CommentOnPostComponent
+          // @ts-ignore
           postId={post?._id}
           // @ts-ignore
           userId={user._id!}
