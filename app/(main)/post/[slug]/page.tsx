@@ -257,8 +257,10 @@ const PostViewPage: React.FC = () => {
       {/* Edit Post  */}
       {user && user._id === post?.author && showEditPostBox && (
         <EditPost
-          postId={post!._id!}
+          // @ts-ignore
+          postId={post?._id!}
           initialPostContent={post?.content!}
+          // @ts-ignore
           postTitle={post?.title!}
           setShowEditPostBox={setShowEditPostBox}
           setRefreshPostPage={setRefreshPostPage}
