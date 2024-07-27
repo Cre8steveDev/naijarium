@@ -6,8 +6,6 @@ import { Comment, Post } from '@/database/models';
 
 async function commentOnPost(commentData: CommentDataType) {
   // Log out parameter
-  console.log('Comment Data received: ', commentData);
-
   //   Try to update the post
   try {
     // Connect to Database

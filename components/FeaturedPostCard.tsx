@@ -26,7 +26,7 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post, index }) => {
         index % 2 === 0 ? 'bg-white' : 'bg-green-100 bg-opacity-65'
       } shadow-md mb-4 p-4 rounded-md`}
     >
-      <Link href={`/post/${post._id}`}>
+      <Link href={`/post/${post.slug}`}>
         <div className="flex gap-3 mb-2">
           <div className="w-[40px]">
             <Image

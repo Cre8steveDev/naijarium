@@ -21,6 +21,7 @@ export interface IPost extends Document {
   author_username: string;
   author_picture: string;
   title: string;
+  slug: string;
   category: string;
   content: string;
   views: number;

@@ -37,7 +37,6 @@ const RegisterPage: React.FC = () => {
 
   const handleFormSubmit = async (data: TRegisterForm) => {
     event?.preventDefault();
-    // console.log(data);
 
     // Check that Passwords match
     if (data.password !== data.confirm_password)

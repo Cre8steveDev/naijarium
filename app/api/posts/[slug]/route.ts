@@ -4,13 +4,13 @@ import { Post } from '@/database/models';
 import { IPost } from '@/database/models.types';
 import connectDB from '@/database/connection';
 
-async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  let { id } = params;
+async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
+  let { slug } = params;
 
   try {
     await connectDB();
     //@ts-ignore
-    const findPost = await Post.findOne({ _id: id });
+    const findPost = await Post.findOne({ slug: slug });
     await findPost.populate('comments');
 
     return NextResponse.json(findPost, { status: 200 });

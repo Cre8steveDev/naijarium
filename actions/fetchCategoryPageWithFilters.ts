@@ -25,13 +25,14 @@ async function fetchCategoryPageWithFilters(
     await connectDB();
     const data = { filtertype, pageNumber, category };
 
+    // const featuredPosts = await axios.post(
+    //   'https://naijarium.vercel.app/api/posts/category',
+    //   data
+    // );
     const featuredPosts = await axios.post(
-      'https://naijarium.vercel.app/api/posts/category',
+      'http://localhost:3000/api/posts/category',
       data
     );
-    // const featuredPosts = await axios.post('/api/posts/category', data);
-
-    console.log(category);
 
     const returnedValue = {
       data: featuredPosts.data.retrievedPosts as IPost[],
@@ -39,9 +40,7 @@ async function fetchCategoryPageWithFilters(
     };
 
     return returnedValue;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 
   return null;
 }

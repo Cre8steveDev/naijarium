@@ -36,7 +36,9 @@ async function POST(req: NextRequest, res: NextResponse) {
 
     /** Integrate AI for Sentiment Analysis */
 
-    const slug = (title as string).replaceAll(' ', '-').toLowerCase();
+    const slug = encodeURI(
+      (title as string).replaceAll(' ', '-').toLowerCase()
+    );
 
     //@ts-ignore
     const post = await Post.create({
@@ -50,8 +52,6 @@ async function POST(req: NextRequest, res: NextResponse) {
       author_picture,
       slug,
     });
-
-    console.log(post);
 
     return NextResponse.json(
       {

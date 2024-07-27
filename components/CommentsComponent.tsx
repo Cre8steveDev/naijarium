@@ -27,7 +27,7 @@ const CommentsComponent = ({
     <div className="overflow-y-scroll h-full">
       <p className="font-black text-4xl text-slate-200 mb-2">{`${
         comments.length
-      } COMMENT ${comments.length === 1 ? '' : 'S'}`}</p>
+      } COMMENT${comments.length === 1 ? '' : 'S'}`}</p>
 
       {/* Map Through All the comments */}
       {comments.map((comment, index) => {

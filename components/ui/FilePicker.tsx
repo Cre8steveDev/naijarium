@@ -16,12 +16,9 @@ export default function FilePicker({
     multiple: false,
     onFilesRejected: ({ errors }) => {
       // this callback is called when there were validation errors
-      console.log('onFilesRejected', errors);
     },
     //@ts-ignore
     onFilesSuccessfullySelected: ({ plainFiles, filesContent }) => {
-      console.log('onFilesSuccessfullySelected', plainFiles, filesContent);
-      console.log;
       handleUploadPicture();
     },
   });
@@ -30,9 +27,8 @@ export default function FilePicker({
     return <div>Loading...</div>;
   }
 
-  const handleUploadPicture = () => {
-    console.log('File sent!!');
-  };
+  // Handle upload to cloud and setPictureURL
+  const handleUploadPicture = () => {};
 
   return (
     <div className="truncate overflow-x-hidden">

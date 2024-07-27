@@ -21,10 +21,11 @@ import CommentsComponent from '@/components/CommentsComponent';
 import LoadingPage from '@/components/ui/LoadingPage';
 import ContentNotFound from '@/components/ui/ContentNotFound';
 import DateComp from '@/components/ui/DateComp';
+import EditPost from '@/components/ui/EditPost';
 
 // Define Page Component
 const PostViewPage: React.FC = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   // Get SignedIn user Data
   const { data: session, status } = useSession();
@@ -39,10 +40,12 @@ const PostViewPage: React.FC = () => {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [showReplyCommentBox, setShowReplyCommentBox] = useState(false);
   const [refreshPostPage, setRefreshPostPage] = useState(0);
+  const [showEditPostBox, setShowEditPostBox] = useState(false);
+  const [viewCounted, setViewCounted] = useState(false);
 
   useEffect(() => {
     // Fetch the post by its ID
-    fetchSinglePost(id as string)
+    fetchSinglePost(slug as string)
       .then((postData) => {
         // If Post not found (i.e undefined) throw error
         if (!postData)
@@ -52,10 +55,12 @@ const PostViewPage: React.FC = () => {
 
         // Set page content and update page view accordingly
         setPost(postData);
-        updatePostViews(id as string);
 
-        console.log(postData);
-
+        // Counting Page Impression
+        if (!viewCounted) {
+          updatePostViews(postData?._id as string);
+          setViewCounted(true);
+        }
         // Reset Page loading state
         setIsLoading(false);
       })
@@ -155,11 +160,9 @@ const PostViewPage: React.FC = () => {
           </div>
         </div>
       </div>
-
       <div className="hidden sm:block">
         <DateComp time={post?.createdAt + ''} />
       </div>
-
       {/* Separator */}
       <hr className="my-2" />
       {/* Insert Content here */}
@@ -236,7 +239,6 @@ const PostViewPage: React.FC = () => {
           currentUserId={status === 'authenticated' ? user._id : 'nil'}
         />
       )}
-
       {/* Post Comment*/}
       {showCommentBox && (
         <CommentOnPostComponent
@@ -248,6 +250,17 @@ const PostViewPage: React.FC = () => {
           author_picture={user.profile_photo}
           postTitle={post?.title!}
           setShowCommentBox={setShowCommentBox}
+          setRefreshPostPage={setRefreshPostPage}
+        />
+      )}
+
+      {/* Edit Post  */}
+      {user && user._id === post?.author && showEditPostBox && (
+        <EditPost
+          postId={post!._id!}
+          initialPostContent={post?.content!}
+          postTitle={post?.title!}
+          setShowEditPostBox={setShowEditPostBox}
           setRefreshPostPage={setRefreshPostPage}
         />
       )}

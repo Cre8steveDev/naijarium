@@ -25,7 +25,7 @@ export const postSchema = new mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    title: { type: String, required: true, trim: true },
+    title: { type: String, required: true, trim: true, unique: true },
     slug: { type: String, trim: true },
     author_username: { type: String, trim: true },
     author_picture: { type: String, trim: true },

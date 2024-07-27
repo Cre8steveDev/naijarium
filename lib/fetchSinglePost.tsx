@@ -1,13 +1,14 @@
 import { IPost } from '@/database/models.types';
 import axios from 'axios';
 
-export async function fetchSinglePost(id: string): Promise<IPost | undefined> {
+export async function fetchSinglePost(
+  slug: string
+): Promise<IPost | undefined> {
   try {
     // Simulating an asynchronous API call
-    const response = await axios.get(`/api/posts/${id}`);
+    const response = await axios.get(`/api/posts/${slug}`);
     const data = response.data;
 
-    console.log('Post Data: ', data);
     return data;
   } catch (error) {
     return undefined;

@@ -15,11 +15,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     (categ) => categ.route === category
   )?.title;
 
-  console.log(categoryString);
-
   const pageSize = 15;
   const skip = (pageNumber - 1) * pageSize;
-  console.log('CATEGORY RETRIEVAL ENDPOINT HIT');
 
   try {
     await connectDB();
