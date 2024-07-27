@@ -100,8 +100,12 @@ export default function PostCategoryPage() {
 
         {/* Map Through the Returned Posts and Render on the UI */}
         {categoryPagePosts &&
-          categoryPagePosts.map((post) => (
-            <FeaturedPostCard key={String(post._id)} post={post} />
+          categoryPagePosts.map((post, index) => (
+            <FeaturedPostCard
+              key={String(post._id)}
+              post={post}
+              index={index}
+            />
           ))}
 
         {/* End of the Posts Card Rendering  */}
