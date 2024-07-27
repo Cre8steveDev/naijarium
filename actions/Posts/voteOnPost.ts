@@ -4,8 +4,6 @@ import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
 
 async function voteOnPost(id: string, userId: string) {
-  console.log('Post Id String', id);
-  console.log("User's Id: ", userId);
   try {
     // Connect to Database
     await connectDB();
@@ -28,7 +26,8 @@ async function voteOnPost(id: string, userId: string) {
     });
 
     // @ts-ignore
-    const result = await Post.findById(id).populate('comments');
+    const result = await Post.findById(id);
+    await result.populate('comments');
 
     return JSON.stringify(result);
   } catch (error) {

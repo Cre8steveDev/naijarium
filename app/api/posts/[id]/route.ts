@@ -10,7 +10,8 @@ async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     await connectDB();
     //@ts-ignore
-    const findPost = await Post.findOne({ _id: id }).populate('comments');
+    const findPost = await Post.findOne({ _id: id });
+    await findPost.populate('comments');
 
     return NextResponse.json(findPost, { status: 200 });
 

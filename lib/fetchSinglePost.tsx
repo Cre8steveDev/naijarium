@@ -7,6 +7,7 @@ export async function fetchSinglePost(id: string): Promise<IPost | undefined> {
     const response = await axios.get(`/api/posts/${id}`);
     const data = response.data;
 
+    console.log('Post Data: ', data);
     return data;
   } catch (error) {
     return undefined;
