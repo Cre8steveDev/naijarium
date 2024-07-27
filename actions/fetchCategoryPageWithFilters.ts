@@ -25,10 +25,7 @@ async function fetchCategoryPageWithFilters(
     await connectDB();
     const data = { filtertype, pageNumber, category };
 
-    const featuredPosts = await axios.post(
-      'http://localhost:3000/api/posts/category',
-      data
-    );
+    const featuredPosts = await axios.post('/api/posts/category', data);
 
     console.log(category);
 
