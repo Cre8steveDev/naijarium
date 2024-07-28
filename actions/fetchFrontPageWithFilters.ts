@@ -41,8 +41,6 @@ async function fetchFrontPageWithFilters(
       totalPosts: featuredPosts.data.totalPosts,
     };
 
-    console.log(returnedValue);
-
     return returnedValue;
   } catch (error) {
     console.log(error);

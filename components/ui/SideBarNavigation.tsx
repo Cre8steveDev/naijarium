@@ -18,8 +18,10 @@ import {
 
 const SideBarNavigation = ({
   setShowMobileMenu,
+  setSelectOpen,
 }: {
   setShowMobileMenu?: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
 
@@ -27,19 +29,30 @@ const SideBarNavigation = ({
     if (setShowMobileMenu) setShowMobileMenu(false);
 
     // Route to the page
-    router.push(`${value}`);
+    router.push(`/posts/category/${value}`);
   };
 
   return (
-    <div className="bg-orange-400 p-2 rounded-lg">
+    <div
+      className="bg-orange-400 p-2 rounded-lg z-30"
+      onClick={(e) => e.stopPropagation()}
+    >
       <p className="p-2 font-semibold text-sm text-white">
         Explore Other Categories
       </p>
-      <Select onValueChange={handleOptionChange}>
+      <Select
+        onValueChange={handleOptionChange}
+        onOpenChange={(open) => {
+          if (setSelectOpen) {
+            if (!open) setTimeout(() => setSelectOpen(open), 1000);
+            else setSelectOpen(open);
+          }
+        }}
+      >
         <SelectTrigger className="w-full text-[16px] focus:outline-none focus:border-none">
           <SelectValue placeholder="Navigate To:" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="z-50">
           {postsCategoryNavLinks.map((category, idx) => (
             <SelectItem
               key={idx}

@@ -1,13 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import FilterButton from '../components/ui/FilterButton';
 import FilterHomePageDataContext from '../contexts/homepagecontext';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
-import { useState, useEffect, LegacyRef, useRef } from 'react';
-import Link from 'next/link';
-import { fetchFeaturedPosts } from '../lib/fetchFeaturedPosts';
+import { useState, useEffect, useRef } from 'react';
+
 import FeaturedPostCard from '../components/FeaturedPostCard';
 import { IPost } from '@/database/models.types';
 import fetchFrontPageWithFilters from '@/actions/fetchFrontPageWithFilters';
@@ -22,7 +20,6 @@ export default function Home() {
   const [frontPagePosts, setFrontPagePosts] = useState<IPost[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [errorLoadingFeed, setErrorLoadingFeed] = useState(false);
-  // const [postsNotAvailable, setPostsNotAvailable] = useState(false);
 
   const postContainerRef = useRef<HTMLElement>(null);
 

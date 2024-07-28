@@ -13,3 +13,7 @@ export function removeTags(str: string) {
   // HTML tag with a null string.
   return str.replace(/(<([^>]+)>)/gi, '');
 }
+
+export function stripHtmlTags(str: string) {
+  return str.replace(/<[^>]*>/g, '');
+}

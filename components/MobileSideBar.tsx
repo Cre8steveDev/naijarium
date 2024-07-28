@@ -13,22 +13,45 @@ import SignUpIcon from '@/public/images/login.png';
 import SideBarNavigation from './ui/SideBarNavigation';
 
 import MobileUserPersonalNavigation from './ui/MobileUserPersonalNavigation';
+import { useState } from 'react';
 
 // import { auth } from '@/auth';
 
 type SideMenuCompProp = {
   user: User | undefined;
   setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  showMobileMenu: boolean;
 };
 
-const MobileSideMenu = ({ user, setShowMobileMenu }: SideMenuCompProp) => {
+const MobileSideMenu = ({
+  user,
+  setShowMobileMenu,
+  showMobileMenu,
+}: SideMenuCompProp) => {
   // const session = await auth();
-  return (
-    <div className="md:block absolute left-0 sm:hidden h-screen w-[80%] top-[0px] bg-white bg-opacity-75 backdrop-blur-lg p-3 z-[15]">
-      <aside className="p-3 rounded-md w-full">
-        <ul>
-          <SideBarNavigation setShowMobileMenu={setShowMobileMenu} />
 
+  const [selectOpen, setSelectOpen] = useState(false);
+  return (
+    <div
+      className={`md:block absolute left-0 sm:hidden h-screen w-[83%] top-[0px] bg-white bg-opacity-75 backdrop-blur-lg p-3 z-[15] transition-all ease-in-out duration-700 ${
+        showMobileMenu
+          ? 'translate-x-0 opacity-100'
+          : '-translate-x-full opacity-0'
+      }`}
+    >
+      <aside className="p-3 rounded-md w-full">
+        <SideBarNavigation
+          setShowMobileMenu={setShowMobileMenu}
+          setSelectOpen={setSelectOpen}
+        />
+
+        <ul
+          className={`${
+            !selectOpen
+              ? 'translate-x-0 opacity-100'
+              : '-translate-x-full opacity-0'
+          } transition-all ease-in-out duration-300`}
+        >
           {/* User Navigation  */}
 
           {user && (

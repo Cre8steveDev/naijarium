@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         {
           $addFields: {
             content: {
-              $substrBytes: ['$content', 0, 100],
+              $substrBytes: ['$content', 0, 120],
             },
           },
         },

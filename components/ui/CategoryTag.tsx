@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { postsCategoryNavLinks } from '../../constants/categoriesAndRoutes';
+import { postsCategoryNavLinks } from '@/constants/categoriesAndRoutes';
 
 type Props = {
   category: string;

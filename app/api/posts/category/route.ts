@@ -4,7 +4,6 @@
 
 import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
-import { IPost } from '@/database/models.types';
 import { NextResponse, NextRequest } from 'next/server';
 import { postsCategoryNavLinks } from '@/constants/categoriesAndRoutes';
 
@@ -26,9 +25,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (filtertype === 'new') {
       const retrievedPosts = await Post.aggregate([
         {
+          $match: {
+            category: categoryString,
+          },
+        },
+        {
           $addFields: {
             content: {
-              $substrBytes: ['$content', 0, 100],
+              $substrBytes: ['$content', 0, 120],
             },
           },
         },
@@ -48,6 +52,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (filtertype === 'favourite') {
       const retrievedPosts = await Post.aggregate([
+        {
+          $match: {
+            category: categoryString,
+          },
+        },
         {
           $addFields: {
             upvotesCount: { $size: '$upvotes' },

@@ -4,13 +4,12 @@ import Image from 'next/image';
 
 const LoadingPage = ({ text }: { text: string }) => {
   return (
-    <div className="w-full h-full justify-center items-center flex flex-col gap-3 bg-white">
+    <div className="w-full h-full justify-center items-center flex flex-col gap-3">
       <Image
         src={LoaderIcon}
-        width={60}
-        height={60}
+        width={40}
+        height={40}
         alt="Loader..."
-        unoptimized
         className="w-full max-w-[200px]"
       />
       <p>{text}</p>

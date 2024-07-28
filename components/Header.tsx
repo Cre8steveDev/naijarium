@@ -110,9 +110,13 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu Side Bar  */}
-      {showMobileMenu && (
-        <MobileSideMenu user={user} setShowMobileMenu={setShowMobileMenu} />
-      )}
+      <MobileSideMenu
+        user={user}
+        setShowMobileMenu={setShowMobileMenu}
+        showMobileMenu={showMobileMenu}
+      />
+      {/* {showMobileMenu && (
+      )} */}
     </header>
   );
 };

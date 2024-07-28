@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { IPost } from '@/database/models.types';
 import PostStats from './ui/PostStats';
 import CategoryTag from './ui/CategoryTag';
+import { stripHtmlTags } from '@/lib/utils';
 
 type FeaturedPostCardProps = {
   post: IPost;
@@ -27,18 +28,20 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post, index }) => {
       } shadow-md mb-4 p-4 rounded-md`}
     >
       <Link href={`/post/${post.slug}`}>
-        <div className="flex gap-3 mb-2">
+        <div className="flex gap-1 mb-2">
           <div className="w-[40px]">
             <Image
               src={post.author_picture}
               alt="Author Image"
-              height={40}
-              width={40}
+              height={30}
+              width={30}
               className="rounded-full"
             />
           </div>
           <div className="text-gray-800">
-            <p className="font-bold text-gray-600">{post.author_username}</p>
+            <p className="font-bold text-gray-600 text-xs text-[14px]">
+              {post.author_username}
+            </p>
             <p className="text-[10px] sm:text-xs">{formattedDate}</p>
           </div>
         </div>
@@ -47,7 +50,7 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post, index }) => {
           {post.title}
         </h2>
         <p className="text-gray-600 text-xs sm:text-md">
-          {post.content.slice(3, 100) + '...'}
+          {stripHtmlTags(post.content).slice(0, 100) + '...'}
         </p>
       </Link>
 

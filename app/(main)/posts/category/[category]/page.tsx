@@ -3,7 +3,7 @@
 import FilterButton from '@/components/ui/FilterButton';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
-import { useState, useEffect, LegacyRef, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import FeaturedPostCard from '@/components/FeaturedPostCard';
 import fetchCategoryPageWithFilters from '@/actions/fetchCategoryPageWithFilters';
@@ -12,6 +12,8 @@ import { IPost } from '@/database/models.types';
 
 import toast from 'react-hot-toast';
 import { useParams } from 'next/navigation';
+import LoadingPage from '@/components/ui/LoadingPage';
+import ContentNotFound from '@/components/ui/ContentNotFound';
 
 export default function PostCategoryPage() {
   const { category } = useParams();
@@ -22,12 +24,14 @@ export default function PostCategoryPage() {
   const [categoryPagePosts, setCategoryPagePosts] = useState<IPost[]>([]);
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [errorLoadingFeed, setErrorLoadingFeed] = useState(false);
+  const [noPostFound, setNoPostFound] = useState(false);
 
   const postContainerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     //  Set Up Page State
     setErrorLoadingFeed(false);
+    setNoPostFound(false);
 
     // Begin Data Fetching
     try {
@@ -38,6 +42,8 @@ export default function PostCategoryPage() {
           // Set the page content
           setCategoryPagePosts(response.data);
           setTotalPosts(response.totalPosts);
+
+          if (response.data.length < 1) setNoPostFound(true);
         }
       );
     } catch (error: any & { message: string }) {
@@ -62,8 +68,8 @@ export default function PostCategoryPage() {
   }, [categoryPagePosts]);
 
   return (
-    <main className="px-5 sm:p-8 h-[calc(100%-100px)]">
-      <section className="flex justify-center md:justify-start gap-3 mt-2 mb-4">
+    <main className="px-5 sm:p-8">
+      <section className="flex justify-center md:justify-start gap-3 sm:mt-2 sm:mb-4 mb-2">
         <FilterButton
           name="new"
           title="NEW TOPICS"
@@ -89,9 +95,16 @@ export default function PostCategoryPage() {
         {/* Define main body */}
         {loadingFeed && (
           <div className="p-16 h-[80%]">
-            <h1>Loading Posts...</h1>
+            <LoadingPage text="Posts loading..." />
           </div>
         )}
+
+        {!loadingFeed && noPostFound && (
+          <div className="">
+            <ContentNotFound text="No Posts under the selected category." />
+          </div>
+        )}
+
         {errorLoadingFeed && (
           <div className="p-16 h-[80%]">
             <h1>Sorry, there was an error loading the feed...</h1>

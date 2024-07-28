@@ -1,5 +1,4 @@
 import React from 'react';
-import { TPost } from '../dummydata/dummyPostData';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,7 +6,7 @@ import { FiEye } from 'react-icons/fi';
 import { LuMessagesSquare } from 'react-icons/lu';
 import { BiUpvote } from 'react-icons/bi';
 import { IPost } from '@/database/models.types';
-import { removeTags } from '@/lib/utils';
+import { stripHtmlTags } from '@/lib/utils';
 
 type FeaturedPostCardProps = {
   post: IPost;
@@ -43,9 +42,8 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post }) => {
           {post.title}
         </h2>
         <p className="text-gray-600 sm:text-sm text-xs">
-          {removeTags(post.content).slice(0, 50) + '...'}
+          {stripHtmlTags(post.content).slice(0, 50) + '...'}
         </p>
-        {/* <p className="text-gray-600">{post.content.slice(4, 66) + '...'}</p> */}
       </Link>
       <div className="flex justify-between mt-4">
         <div className="flex gap-3">
