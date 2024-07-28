@@ -25,12 +25,10 @@ async function fetchCategoryPageWithFilters(
     await connectDB();
     const data = { filtertype, pageNumber, category };
 
-    const featuredPosts = await axios.post('/api/posts/category', data);
-
-    // const featuredPosts = await axios.post(
-    //   'https://naijarium.vercel.app/api/posts',
-    //   data
-    // );
+    const featuredPosts = await axios.post(
+      'https://naijarium.vercel.app/api/posts/category',
+      data
+    );
 
     // const featuredPosts = await axios.post(
     //   'http://localhost:3000/api/posts/category',
