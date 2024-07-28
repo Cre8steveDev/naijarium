@@ -3,22 +3,21 @@
 import { Editor } from '@tinymce/tinymce-react';
 import FilePicker from './FilePicker';
 import { useRef, useState } from 'react';
-import commentOnPost from '@/actions/Posts/commentOnPost';
 import toast from 'react-hot-toast';
 import { FaWindowClose } from 'react-icons/fa';
-import editPostAction from '@/actions/Posts/editPostAction';
+import editComment from '@/actions/Comments/editComment';
+import { Comment } from '../CommentsComponent';
 
 /**
  * Comment on Post Post Page to be
  * rendered over current page
  */
 
-type EditPostCompProp = {
-  postId: string;
-  postTitle: string;
-  initialPostContent: string;
-  setShowEditPostBox: React.Dispatch<React.SetStateAction<boolean>>;
-  setRefreshPostPage: React.Dispatch<React.SetStateAction<number>>;
+type EditCommentCompProp = {
+  commentId: string;
+  initialCommentContent: string;
+  setShowEditCommentBox: React.Dispatch<React.SetStateAction<boolean>>;
+  setThisComment: React.Dispatch<React.SetStateAction<Comment | null>>;
 };
 
 export type CommentDataType = {
@@ -31,17 +30,16 @@ export type CommentDataType = {
   picture2: string;
 };
 
-const EditPost: React.FC<EditPostCompProp> = ({
-  postId,
-  postTitle,
-  initialPostContent = '',
-  setShowEditPostBox,
-  setRefreshPostPage,
+const EditComment: React.FC<EditCommentCompProp> = ({
+  commentId,
+  initialCommentContent = '',
+  setShowEditCommentBox,
+  setThisComment,
 }) => {
   // Define Component State here
   const [picture1, setPicture1] = useState('');
   const [picture2, setPicture2] = useState('');
-  const [postContent, setPostContent] = useState(initialPostContent);
+  const [commentContent, setCommentContent] = useState(initialCommentContent);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   //   Create reference for editor
@@ -50,9 +48,9 @@ const EditPost: React.FC<EditPostCompProp> = ({
   // Handle Update Add Comment to Post
   const handleSubmitEdit = async () => {
     // Handle mini validation
-    if (postContent.trimEnd().length < 30) {
+    if (commentContent.trimEnd().length < 30) {
       toast.error(
-        'A post less than 30 words is not so descriptive. Please add more words'
+        'A comment less than 30 characters is not so descriptive. Please add more words'
       );
       return;
     }
@@ -60,16 +58,16 @@ const EditPost: React.FC<EditPostCompProp> = ({
     setIsSubmitting(true);
 
     // Call Server action with the post to update and new content
-    const response = await editPostAction(postId, postContent);
-    const parsed = JSON.parse(response);
+    const response = await editComment(commentId, commentContent);
+    const parsed = await JSON.parse(response);
 
     if (parsed) {
       //   Refresh Component of parent state.
-      setRefreshPostPage((prev) => ++prev);
+      setThisComment(parsed);
 
       // Close Comment Box
       setIsSubmitting(false);
-      setShowEditPostBox(false);
+      setShowEditCommentBox(false);
     } else {
       toast.error('An error occured. Please try again');
     }
@@ -77,15 +75,15 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
   //   Handler for updating comment text
   const handleEditorChange = (text: string, editor: Editor) => {
-    setPostContent(text);
+    setCommentContent(text);
   };
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10">
+    <div className="w-full h-full fixed top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70  z-10">
       {/* Style Close Button */}
       <button
-        onClick={() => setShowEditPostBox(false)}
+        onClick={() => setShowEditCommentBox(false)}
         className="flex text-xs items-center gap-2 sm:text-xl"
       >
         <FaWindowClose
@@ -97,10 +95,7 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
       {/* JSX of the editor  */}
       <div className="md:mt-6 text-center w-full text-sm p-3">
-        <h2 className=" sm:font-bold text-gray-700 text-xl">
-          Edit the Post Content:
-        </h2>
-        <p>{postTitle}</p>
+        <h2 className="font-bold text-gray-700 text-xl">Edit the Comment:</h2>
       </div>
 
       {/* Editing Form here */}
@@ -111,7 +106,7 @@ const EditPost: React.FC<EditPostCompProp> = ({
             // @ts-ignore
             (editorRef.current = editor)
           }
-          initialValue={initialPostContent}
+          initialValue={initialCommentContent}
           //@ts-ignore
           onEditorChange={handleEditorChange}
           id="tinymce_99883"
@@ -139,8 +134,8 @@ const EditPost: React.FC<EditPostCompProp> = ({
             // undo redo
             toolbar:
               'blocks | codesample emoticons | ' +
-              'bold italic forecolor ' +
-              'alignleft aligncenter ' +
+              'bold italic forecolor |' +
+              'alignleft aligncenter |' +
               'alignright | alignjustify | bullist numlist',
           }}
         />
@@ -175,4 +170,4 @@ const EditPost: React.FC<EditPostCompProp> = ({
   );
 };
 
-export default EditPost;
+export default EditComment;

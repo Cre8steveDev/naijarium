@@ -11,6 +11,7 @@ export const commentSchema = new mongoose.Schema(
     post: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Post' },
     author_username: String,
     author_picture: String,
+    edited: { type: Boolean, default: false },
     content: { type: String, required: true, trim: true },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },

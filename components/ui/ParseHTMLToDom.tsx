@@ -42,7 +42,7 @@ const ParseHTMLToDom = ({ pageContent }: Props) => {
   }, []);
 
   return (
-    <div className="markdown w-full min-w-full text-[14px] sm:text-base">
+    <div className="markdown w-full min-w-full text-[14px] sm:text-[18px] ">
       {parse(pageContent)}
     </div>
   );

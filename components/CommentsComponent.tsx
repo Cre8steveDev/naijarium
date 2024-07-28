@@ -11,6 +11,7 @@ export type Comment = {
   likes: string[];
   createdAt: string;
   updatedAt: string;
+  edited: boolean;
   _id: string;
 };
 

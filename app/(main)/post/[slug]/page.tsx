@@ -165,8 +165,10 @@ const PostViewPage: React.FC = () => {
       </div>
       {/* Separator */}
       <hr className="my-2" />
+
       {/* Insert Content here */}
       <ParseHTMLToDom pageContent={post?.content || ''} />
+
       {/* Picture View Overlay Here */}
       {post?.post_picture1 !== '' ||
         (post?.post_picture2 !== '' && (
@@ -184,10 +186,13 @@ const PostViewPage: React.FC = () => {
             />
           </div>
         ))}
+
       {/* Picture View Model Here  */}
       {showPicturePreview && <div></div>}
+
       {/* Section Divider */}
       <hr className="border-1 border-slate-400 opacity-70" />
+
       {/* Take Action on Post */}
       {status === 'authenticated' && (
         <div className="flex gap-3 mt-3">
@@ -222,15 +227,17 @@ const PostViewPage: React.FC = () => {
           {/* Edit Post Post */}
           {user._id === post?.author && (
             <PostAction
-              onClick={() => console.log('Trigger Upvote Post')}
+              onClick={() => setShowEditPostBox(true)}
               title={'Edit Post'}
               bgColor="bg-slate-400"
             />
           )}
         </div>
       )}
+
       {/* Section Divider */}
       <hr className="border-1 border-slate-400 opacity-70 my-3" />
+
       {/* Render all Comments for the Post  */}
       {post && (
         <CommentsComponent
@@ -239,6 +246,7 @@ const PostViewPage: React.FC = () => {
           currentUserId={status === 'authenticated' ? user._id : 'nil'}
         />
       )}
+
       {/* Post Comment*/}
       {showCommentBox && (
         <CommentOnPostComponent

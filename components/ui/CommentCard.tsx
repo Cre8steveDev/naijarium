@@ -6,6 +6,7 @@ import DateComp from './DateComp';
 import likeOrDislikeComment from '@/actions/Comments/LikeOrDislikeComment';
 import deleteComment from '@/actions/Comments/DeleteComment';
 import toast from 'react-hot-toast';
+import EditComment from './EditComment';
 
 const CommentCard = ({
   comment,
@@ -19,6 +20,7 @@ const CommentCard = ({
   // Create states to manage each comment,
   //so it can be updated or removed from DateComp
   const [thisComment, setThisComment] = useState<Comment | null>(comment);
+  const [showEditCommentBox, setShowEditCommentBox] = useState(false);
 
   // Handle Comment LIke
   const handleCommentLike = async () => {
@@ -108,13 +110,19 @@ const CommentCard = ({
             </button>
 
             {/* Quote Comment  */}
-            <button className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out">
+            <button
+              className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+              onClick={() => toast.error('TODO: Feature not yet implemented.')}
+            >
               Quote
             </button>
 
             {/* Edit Comment  */}
             {thisComment.author === userId && (
-              <button className="px-[6px] py-[1px] text-[9px] sm:text-[12px] bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out">
+              <button
+                className="px-[6px] py-[1px] text-[9px] sm:text-[12px] bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+                onClick={() => setShowEditCommentBox(true)}
+              >
                 Edit
               </button>
             )}
@@ -128,7 +136,20 @@ const CommentCard = ({
                 Delete
               </button>
             )}
+
+            {showEditCommentBox && thisComment.author === userId && (
+              <EditComment
+                commentId={thisComment._id}
+                initialCommentContent={thisComment.content}
+                setShowEditCommentBox={setShowEditCommentBox}
+                setThisComment={setThisComment}
+              />
+            )}
           </>
+        )}
+
+        {thisComment.edited && (
+          <p className="text-[12px] ml-[20px] text-orange-700">Edited</p>
         )}
       </div>
     </div>

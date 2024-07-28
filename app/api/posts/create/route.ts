@@ -6,6 +6,16 @@ import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
 import { NextResponse, NextRequest } from 'next/server';
 
+// Helper function to create slug
+function createSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replaceAll(' ', '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/--+/g, '-')
+    .trim();
+}
+
 async function POST(req: NextRequest, res: NextResponse) {
   const {
     title,
@@ -36,9 +46,7 @@ async function POST(req: NextRequest, res: NextResponse) {
 
     /** Integrate AI for Sentiment Analysis */
 
-    const slug = encodeURI(
-      (title as string).replaceAll(' ', '-').toLowerCase()
-    );
+    const slug = createSlug(title as string);
 
     //@ts-ignore
     const post = await Post.create({
