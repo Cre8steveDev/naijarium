@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 -mt-[100px] sm:mt-0 relative">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 -mt-[130px] sm:mt-8 relative h-full sm:h-fit sm:max-h-[750px]">
       {/* Close Button on Desktop */}
 
       <Link

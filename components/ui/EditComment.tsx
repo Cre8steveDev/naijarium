@@ -80,7 +80,7 @@ const EditComment: React.FC<EditCommentCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70  z-10">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowEditCommentBox(false)}
@@ -133,10 +133,9 @@ const EditComment: React.FC<EditCommentCompProp> = ({
             ],
             // undo redo
             toolbar:
-              'blocks | codesample emoticons | ' +
-              'bold italic forecolor |' +
-              'alignleft aligncenter |' +
-              'alignright | alignjustify | bullist numlist',
+              'blocks codesample emoticons bold italic forecolor ' +
+              'alignleft aligncenter alignright alignjustify |' +
+              'bullist numlist undo redo',
           }}
         />
       </div>

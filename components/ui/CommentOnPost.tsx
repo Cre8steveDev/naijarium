@@ -97,7 +97,7 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-screen absolute top-0 left-0 p-5 bg-slate-200 backdrop-blur-lg bg-opacity-70">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowCommentBox(false)}
@@ -151,10 +151,9 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
             ],
             // undo redo
             toolbar:
-              'blocks | codesample emoticons | ' +
-              'bold italic forecolor ' +
-              'alignleft aligncenter ' +
-              'alignright | alignjustify | bullist numlist',
+              'blocks codesample emoticons bold italic forecolor ' +
+              'alignleft aligncenter alignright alignjustify |' +
+              'bullist numlist undo redo',
           }}
         />
       </div>

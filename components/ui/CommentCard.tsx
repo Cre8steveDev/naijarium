@@ -149,7 +149,9 @@ const CommentCard = ({
         )}
 
         {thisComment.edited && (
-          <p className="text-[12px] ml-[20px] text-orange-700">Edited</p>
+          <p className="text-[9px] sm:text-[12px] ml-[20px] text-orange-700">
+            Edited
+          </p>
         )}
       </div>
     </div>

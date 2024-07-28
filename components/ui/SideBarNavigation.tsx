@@ -16,12 +16,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import Link from 'next/link';
-
-const SideBarNavigation = () => {
+const SideBarNavigation = ({
+  setShowMobileMenu,
+}: {
+  setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
 
   const handleOptionChange = (value: string) => {
+    setShowMobileMenu(false);
     router.push(`${value}`);
   };
 

@@ -94,7 +94,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 mt-12 sm:mt-0 relative">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 mt-0 sm:mt-0 relative">
       {/* Close Button on Desktop */}
 
       <Link

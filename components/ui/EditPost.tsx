@@ -82,7 +82,7 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowEditPostBox(false)}
@@ -97,14 +97,14 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
       {/* JSX of the editor  */}
       <div className="md:mt-6 text-center w-full text-sm p-3">
-        <h2 className=" sm:font-bold text-gray-700 text-xl">
-          Edit the Post Content:
+        <h2 className=" sm:font-bold text-gray-700 text-sm">
+          Editing Post Content:
         </h2>
-        <p>{postTitle}</p>
+        <p className="font-bold text-base">{postTitle}</p>
       </div>
 
       {/* Editing Form here */}
-      <div className="w-full sm:[80%] max-w-[800px] mx-auto">
+      <div className="w-full sm:[80%] sm:max-w-[800px] mx-auto">
         <Editor
           apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
           onInit={(_evt, editor) =>
@@ -117,7 +117,7 @@ const EditPost: React.FC<EditPostCompProp> = ({
           id="tinymce_99883"
           init={{
             // id: '10',
-            height: 400,
+            height: 380,
             menubar: false,
             plugins: [
               'advlist',
@@ -138,10 +138,9 @@ const EditPost: React.FC<EditPostCompProp> = ({
             ],
             // undo redo
             toolbar:
-              'blocks | codesample emoticons | ' +
-              'bold italic forecolor ' +
-              'alignleft aligncenter ' +
-              'alignright | alignjustify | bullist numlist',
+              'blocks codesample emoticons bold italic forecolor ' +
+              'alignleft aligncenter alignright alignjustify |' +
+              'bullist numlist undo redo',
           }}
         />
       </div>
