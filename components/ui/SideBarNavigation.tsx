@@ -19,12 +19,14 @@ import {
 const SideBarNavigation = ({
   setShowMobileMenu,
 }: {
-  setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowMobileMenu?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
 
   const handleOptionChange = (value: string) => {
-    setShowMobileMenu(false);
+    if (setShowMobileMenu) setShowMobileMenu(false);
+
+    // Route to the page
     router.push(`${value}`);
   };
 
