@@ -155,12 +155,12 @@ const PostViewPage: React.FC = () => {
           />
           <CategoryTag category={post?.category + ''} />
 
-          <div className="sm:hidden">
+          {/* <div className="sm:hidden">
             <DateComp time={post?.createdAt + ''} />
-          </div>
+          </div> */}
         </div>
       </div>
-      <div className="hidden sm:block">
+      <div className="">
         <DateComp time={post?.createdAt + ''} />
       </div>
       {/* Separator */}
