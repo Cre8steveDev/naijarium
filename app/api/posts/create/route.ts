@@ -64,6 +64,7 @@ async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(
       {
         message: 'Your Post was Successfully Published',
+        redirectUrl: `/post/${post.slug}`,
       },
       { status: 201 }
     );

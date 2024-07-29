@@ -10,19 +10,39 @@ import { Comment } from '@/database/models';
  * Featured Posts
  */
 
-async function editComment(commentId: string, content: string) {
+async function editComment(
+  commentId: string,
+  content: string,
+  picture1: string,
+  picture2: string
+) {
   try {
     // Connect to Database
     await connectDB();
     // Find a Comment by its id and update the content
+
+    let updateOperation;
+
+    if (picture1 !== '' && picture2 === '') {
+      updateOperation = {
+        $set: { content: content, picture1: picture1, edited: true },
+      };
+    } else if (picture2 !== '' && picture1 === '') {
+      updateOperation = {
+        $set: { content: content, picture2: picture2, edited: true },
+      };
+    } else {
+      updateOperation = {
+        $set: { content: content, edited: true },
+      };
+    }
+
     // @ts-ignore
     const newComment = await Comment.findOneAndUpdate(
       {
         _id: commentId,
       },
-      {
-        $set: { content: content, edited: true },
-      },
+      updateOperation,
       { new: true }
     );
 

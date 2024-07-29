@@ -8,6 +8,8 @@ export type Comment = {
   author_username: string;
   author: string;
   content: string;
+  picture1: string;
+  picture2: string;
   likes: string[];
   createdAt: string;
   updatedAt: string;

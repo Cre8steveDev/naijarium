@@ -55,6 +55,45 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google,
   ],
   callbacks: {
+    // Google Signin
+    async signIn({ user, account, profile }) {
+      if (account?.provider === 'google') {
+        try {
+          await connectDB();
+
+          //  @ts-ignore
+          let dbUser = await User.findOne({ email: user.email });
+
+          if (!dbUser) {
+            // Create a new user if they don't exist
+            // @ts-ignore
+            dbUser = await User.create({
+              email: user.email,
+              username: user.name?.replaceAll(' ', ''),
+              profile_photo: user.image,
+              password: Date.now(),
+              gender: 'N/A',
+            });
+          }
+
+          // Update user object with database fields
+          // @ts-ignore
+          user._id = dbUser._id;
+          // @ts-ignore
+          user.username = dbUser.username;
+          user.email = dbUser.email;
+          // @ts-ignore
+          user.profile_photo = dbUser.profile_photo;
+
+          return true;
+        } catch (error) {
+          console.error('Error in Google sign in:', error);
+          return false;
+        }
+      }
+      return true;
+    },
+    // Session Implementation
     async session({ session, token, user }) {
       //@ts-ignore
       session.user = token.user as AuthUser;

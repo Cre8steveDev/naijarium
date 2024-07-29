@@ -109,15 +109,17 @@ const PostViewPage: React.FC = () => {
     return <ContentNotFound text="Invalid Post Url. Post not found." />;
   }
 
+  console.log('The Received Post: ', post);
+
   // Return JSX
   return (
-    <main className="px-5 md:px-10 py-8 cursor-default bg-white dark:bg-slate-800 rounded-xl  sm:mt-[2.15rem] relative min-h-[700px] overflow-y-scroll mx-3">
-      <h1 className="text-green-900 dark:text-white text-xl sm:text-3xl font-extrabold dark:mb-2">
+    <main className="relative mx-3 min-h-[700px] cursor-default overflow-y-scroll rounded-xl bg-white px-5 py-8 dark:bg-slate-800 sm:mt-[2.15rem] md:px-10">
+      <h1 className="text-xl font-extrabold text-green-900 dark:mb-2 dark:text-white sm:text-3xl">
         {post?.title}
       </h1>
       <Link
         href={`/user/profile/${post?.author_username}`}
-        className="flex items-center font-bold hover:opacity-65 transition-opacity ease-in-out sm:hidden"
+        className="flex items-center font-bold transition-opacity ease-in-out hover:opacity-65 sm:hidden"
       >
         <Image
           src={post?.author_picture!}
@@ -129,12 +131,12 @@ const PostViewPage: React.FC = () => {
         <p className="text-xs dark:ml-2 sm:text-lg">@{post?.author_username}</p>
       </Link>
       {/* Define Post Stats Here */}
-      <div className="w-full flex justify-between my-3">
+      <div className="my-3 flex w-full justify-between">
         {/* User name, date created */}
 
         <Link
           href={`/user/profile/${post?.author_username}`}
-          className="items-center font-bold hover:opacity-65 transition-opacity ease-in-out hidden sm:flex"
+          className="hidden items-center font-bold transition-opacity ease-in-out hover:opacity-65 sm:flex"
         >
           <Image
             src={post?.author_picture!}
@@ -147,7 +149,7 @@ const PostViewPage: React.FC = () => {
         </Link>
 
         {/* Post stats */}
-        <div className="flex gap-3 items-center">
+        <div className="flex items-center gap-3">
           <PostStats
             views={post?.views!}
             comments={post?.comments?.length!}
@@ -170,32 +172,47 @@ const PostViewPage: React.FC = () => {
       <ParseHTMLToDom pageContent={post?.content || ''} />
 
       {/* Picture View Overlay Here */}
-      {post?.post_picture1 !== '' ||
-        (post?.post_picture2 !== '' && (
-          <div>
-            <PostPictureComp
-              picture_url={post?.post_picture1 || ''}
-              setSelectedPicture={setSelectedPicture}
-              author_username={post?.author_username || ''}
-            />
 
-            <PostPictureComp
-              picture_url={post?.post_picture2 || ''}
-              setSelectedPicture={setSelectedPicture}
-              author_username={post?.author_username || ''}
-            />
-          </div>
-        ))}
+      <div className="md:flex">
+        {post && post.post_picture1 && post.post_picture1! !== '' && (
+          <PostPictureComp
+            picture_url={post?.post_picture1 || ''}
+            setSelectedPicture={setSelectedPicture}
+            author_username={post?.author_username || ''}
+          />
+        )}
+        {post && post.post_picture2 && post.post_picture2! !== '' && (
+          <PostPictureComp
+            picture_url={post?.post_picture2 || ''}
+            setSelectedPicture={setSelectedPicture}
+            author_username={post?.author_username || ''}
+          />
+        )}
+      </div>
 
       {/* Picture View Model Here  */}
-      {showPicturePreview && <div></div>}
+      {selectedPicture !== '' && (
+        <div
+          onClick={() => setSelectedPicture('')}
+          className="fixed left-0 top-0 z-50 hidden h-screen w-full cursor-pointer flex-col items-center justify-center gap-2 bg-slate-950 bg-opacity-60 bg-fixed p-10 backdrop-blur-lg md:flex"
+        >
+          <p className="font-bold text-white">
+            Click on any part of the image to close.
+          </p>
+          <img
+            src={selectedPicture}
+            alt="Picture Preview"
+            className="w-full max-w-[800px]"
+          />
+        </div>
+      )}
 
       {/* Section Divider */}
-      <hr className="border-1 border-slate-400 opacity-70" />
+      <hr className="border-1 mt-2 border-slate-400 opacity-70" />
 
       {/* Take Action on Post */}
       {status === 'authenticated' && (
-        <div className="flex gap-3 mt-3">
+        <div className="mt-3 flex gap-3">
           {/* Comment Button */}
           <PostAction
             onClick={() => setShowCommentBox(true)}
@@ -236,7 +253,7 @@ const PostViewPage: React.FC = () => {
       )}
 
       {/* Section Divider */}
-      <hr className="border-1 border-slate-400 opacity-70 my-3" />
+      <hr className="border-1 my-3 border-slate-400 opacity-70" />
 
       {/* Render all Comments for the Post  */}
       {post && (

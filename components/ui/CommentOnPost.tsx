@@ -163,17 +163,21 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
       </div>
 
       {/* Custom File Pickers  */}
-      <p className=" text-xs text-left ml-2 mt-3 sm:text-center">
+      <p className=" text-xs text-left ml-2 dark:text-white sm:text-center sm:mt-3">
         File Upload is Optional. Keep files under 2mb
       </p>
-      <div className="flex gap-5 w-full p-2 overflow-x-hidden mb-3 sm:justify-center">
+      <div className="flex gap-5 w-full p-2 overflow-x-hidden sm:mx-auto justify-center">
         <FilePicker
           setPictureUrl={setPicture1}
-          buttonTitle="Select Picture 01"
+          buttonTitle={
+            picture1 === '' ? 'Select Picture 01' : 'Change picture 01'
+          }
         />
         <FilePicker
           setPictureUrl={setPicture2}
-          buttonTitle="Select Picture 02"
+          buttonTitle={
+            picture2 === '' ? 'Select Picture 02' : 'Change picture 02'
+          }
         />
       </div>
 

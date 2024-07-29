@@ -7,6 +7,7 @@ import likeOrDislikeComment from '@/actions/Comments/LikeOrDislikeComment';
 import deleteComment from '@/actions/Comments/DeleteComment';
 import toast from 'react-hot-toast';
 import EditComment from './EditComment';
+import PostPictureComp from './PostPictureComp';
 
 const CommentCard = ({
   comment,
@@ -21,7 +22,9 @@ const CommentCard = ({
   //so it can be updated or removed from DateComp
   const [thisComment, setThisComment] = useState<Comment | null>(comment);
   const [showEditCommentBox, setShowEditCommentBox] = useState(false);
+  const [selectedPicture, setSelectedPicture] = useState('');
 
+  console.log(comment);
   // Handle Comment LIke
   const handleCommentLike = async () => {
     try {
@@ -71,12 +74,12 @@ const CommentCard = ({
           : 'bg-slate-100 dark:bg-slate-700'
       } my-2 rounded-md p-1 px-2 sm:p-3`}
     >
-      <div className={`flex gap-3 items-center mb-2`}>
+      <div className={`mb-2 flex items-center gap-3`}>
         <Image
           src={thisComment.author_picture}
           width={30}
           height={30}
-          className="w-[30px] h-[30px] object-cover rounded-full"
+          className="h-[30px] w-[30px] rounded-full object-cover"
           alt={thisComment.author_username}
         />
         <p className="font-bold">{thisComment.author_username}</p>
@@ -95,9 +98,10 @@ const CommentCard = ({
       {/* Show Comment Pictures here */}
 
       {/* Comment Interaction */}
-      <div className="flex gap-2 items-center my-3 text-black dark:text-slate-100">
+      <div className="my-3 flex items-center gap-2 text-black dark:text-slate-100">
         {/* Like and Dislike Button  */}
         <p className="text-xs sm:text-[15px]">{`${thisComment.likes.length} Likes`}</p>
+
         {userId !== 'nil' && (
           <>
             <button
@@ -105,7 +109,7 @@ const CommentCard = ({
               className={`px-[6px] py-[1px] text-[9px] sm:text-[12px] ${
                 thisComment.likes.includes(userId)
                   ? 'bg-slate-400  hover:bg-slate-700'
-                  : 'bg-green-300 hover:bg-green-700 '
+                  : 'bg-green-300 text-black hover:bg-green-700 '
               } rounded-lg  transition-all ease-in-out`}
             >
               {thisComment.likes.includes(userId) ? 'Dislike' : 'Like'}
@@ -113,7 +117,7 @@ const CommentCard = ({
 
             {/* Quote Comment  */}
             <button
-              className="px-[6px] py-[1px] text-[9px] sm:text-[12px] dark:bg-orange-600  bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+              className="rounded-lg bg-slate-200 px-[6px] py-[1px] text-[9px] transition-all ease-in-out hover:bg-slate-800 hover:text-white dark:bg-orange-600 sm:text-[12px]"
               onClick={() => toast.error('TODO: Feature not yet implemented.')}
             >
               Quote
@@ -122,7 +126,7 @@ const CommentCard = ({
             {/* Edit Comment  */}
             {thisComment.author === userId && (
               <button
-                className="px-[6px] py-[1px] text-[9px] sm:text-[12px] bg-slate-200 dark:bg-green-900 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+                className="rounded-lg bg-slate-200 px-[6px] py-[1px] text-[9px] transition-all ease-in-out hover:bg-slate-800 hover:text-white dark:bg-green-900 sm:text-[12px]"
                 onClick={() => setShowEditCommentBox(true)}
               >
                 Edit
@@ -132,7 +136,7 @@ const CommentCard = ({
             {/* Delete Comment  */}
             {thisComment.author === userId && (
               <button
-                className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 dark:bg-red-800 rounded-lg hover:bg-red-500 hover:text-white transition-all ease-in-out"
+                className="rounded-lg bg-slate-200 px-[6px] py-[1px] text-[9px] transition-all ease-in-out hover:bg-red-500 hover:text-white dark:bg-red-800 sm:text-[12px]"
                 onClick={handleDeleteComment}
               >
                 Delete
@@ -151,11 +155,53 @@ const CommentCard = ({
         )}
 
         {thisComment.edited && (
-          <p className="text-[9px] sm:text-[12px] ml-[20px] text-orange-700 dark:text-slate-300">
+          <p className="ml-[20px] text-[9px] text-orange-700 dark:text-slate-300 sm:text-[12px]">
             Edited
           </p>
         )}
       </div>
+
+      {/* Picture View Overlay Here */}
+
+      <div className="flex border-y-2 border-y-slate-200">
+        {thisComment &&
+          thisComment.picture1 &&
+          thisComment.picture1! !== '' && (
+            <PostPictureComp
+              picture_url={thisComment.picture1 || ''}
+              setSelectedPicture={setSelectedPicture}
+              author_username={''}
+              type="comment"
+            />
+          )}
+        {thisComment &&
+          thisComment.picture2 &&
+          thisComment.picture2! !== '' && (
+            <PostPictureComp
+              picture_url={thisComment.picture2 || ''}
+              setSelectedPicture={setSelectedPicture}
+              author_username={''}
+              type="comment"
+            />
+          )}
+      </div>
+
+      {/* Picture View Model Here - Comments card specific */}
+      {selectedPicture !== '' && (
+        <div
+          onClick={() => setSelectedPicture('')}
+          className="fixed left-0 top-0 z-50 flex h-screen w-full cursor-pointer flex-col items-center justify-center gap-2 bg-slate-950 bg-opacity-60 bg-fixed p-2 backdrop-blur-lg sm:p-10"
+        >
+          <p className="font-bold text-white">
+            Click on any part of the image to close.
+          </p>
+          <img
+            src={selectedPicture}
+            alt="Picture Preview"
+            className="w-full max-w-[800px]"
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -18,6 +18,8 @@ async function commentOnPost(commentData: CommentDataType) {
       author_username: commentData.author_username,
       author_picture: commentData.author_picture,
       content: commentData.commentText,
+      picture1: commentData.picture1,
+      picture2: commentData.picture2,
     });
 
     // Save comment to Database
@@ -40,11 +42,3 @@ async function commentOnPost(commentData: CommentDataType) {
 }
 
 export default commentOnPost;
-
-/**
-   picture1,
-      picture2,
-      commentText,
-      postId,
-      userId,
- */

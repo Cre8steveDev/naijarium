@@ -12,17 +12,17 @@ const SocialLogins = () => {
   return (
     <form
       action={handleSocialSignIn}
-      className="flex flex-col gap-4 w-full text-xs text-center sm:text-left sm:text-sm items-center sm:items-start"
+      className="flex w-full flex-col items-center gap-4 text-center text-xs sm:items-start sm:text-left sm:text-sm"
     >
       <hr className="border-1 border-gray-300" />
       <p>Login with your Social Accounts</p>
 
-      <div className="flex -mt-4 w-[60%] max-w-[400px]">
+      <div className="-mt-4 flex w-[60%] max-w-[400px]">
         <button
           type="submit"
           name="auth"
           value="google"
-          className="hover:bg-opacity-75 hover:opacity-80 p-2 rounded-lg font-semibold text-white transition ease-in hover:scale-90"
+          className="rounded-lg p-2 font-semibold text-white transition ease-in hover:scale-90 hover:bg-opacity-75 hover:opacity-80"
         >
           <Image
             src={googleLogo}
@@ -31,18 +31,18 @@ const SocialLogins = () => {
           />
         </button>
 
-        <button
+        {/* <button
           type="submit"
           name="auth"
           value="google"
-          className="hover:bg-opacity-75 hover:opacity-80 p-2 rounded-lg font-semibold text-white transition ease-in hover:scale-90"
+          className="rounded-lg p-2 font-semibold text-white transition ease-in hover:scale-90 hover:bg-opacity-75 hover:opacity-80"
         >
           <Image
             src={githubLogo}
             alt="Login Photo"
             className="w-full object-cover active:scale-90"
           />
-        </button>
+        </button> */}
       </div>
     </form>
   );

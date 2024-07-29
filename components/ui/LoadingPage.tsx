@@ -11,6 +11,7 @@ const LoadingPage = ({ text }: { text: string }) => {
         height={40}
         alt="Loader..."
         className="w-full max-w-[200px]"
+        unoptimized
       />
       <p>{text}</p>
     </div>

@@ -18,25 +18,14 @@ export const POST = async (request: NextRequest) => {
         { status: 409 }
       );
     }
-    //
+
     // Hash the plaintext password for storage in DB
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // const newUser = await new User(
-    //   {
-    //     username,
-    //     email,
-    //     password: hashedPassword,
-    //     gender,
-    //     // createdAt: Date.now(),
-    //   },
-    //   { timestamps: true }
-    // );
-
     //@ts-ignore
     await User.create({
-      username,
+      username: username.replaceAll(' ', ''),
       email,
       password: hashedPassword,
       gender,

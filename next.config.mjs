@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'picsum.photos', pathname: '**' },
+      { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '**' },
       {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
@@ -20,3 +21,4 @@ const nextConfig = {
 export default nextConfig;
 
 // lh3.googleusercontent.com
+// 'res.cloudinary.com'
