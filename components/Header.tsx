@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import ThemeToggle from './ui/ThemeToggleComp';
 
 // Import default images
 import CreatePostIcon from '@/public/images/create-post.png';
@@ -21,7 +22,7 @@ const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
-    <header className="top-0 z-[30] fixed md:sticky bg-white shadow-md shadow-slate-100 px-5 py-2 md:px-5 md:py-5 w-screen ">
+    <header className="top-0 z-[30] fixed md:sticky bg-white dark:bg-gray-800 shadow-md shadow-slate-100 dark:shadow-slate-700 px-5 py-2 md:px-5 md:py-5 w-screen ">
       <div className="flex justify-between items-center mx-auto w-full max-w-[1440px]">
         <Link href={'/'}>
           <section className="flex items-center gap-3">
@@ -34,6 +35,7 @@ const Header = () => {
 
         <nav className="">
           <ul className="flex justify-between items-center gap-2 md:gap-6 pr-2">
+            <ThemeToggle />
             {!user && (
               <>
                 <Link href={'/login'} className="hidden sm:block">
@@ -66,7 +68,9 @@ const Header = () => {
                       alt="Create Post"
                       className="sm:w-[25px] sm:h-[25px] w-[15px] h-[15px]"
                     />
-                    <p className="text-[10px] sm:text-base">Create Post</p>
+                    <p className="text-[10px] sm:text-base flex">
+                      <span className="hidden sm:block">Create</span> Post
+                    </p>
                   </li>
                 </Link>
 

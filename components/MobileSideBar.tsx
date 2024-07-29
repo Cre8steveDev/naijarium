@@ -33,7 +33,7 @@ const MobileSideMenu = ({
   const [selectOpen, setSelectOpen] = useState(false);
   return (
     <div
-      className={`md:block absolute left-0 sm:hidden h-screen w-[83%] top-[0px] bg-white bg-opacity-75 backdrop-blur-lg p-3 z-[15] transition-all ease-in-out duration-700 ${
+      className={`md:block absolute left-0 sm:hidden h-screen w-[83%] top-[0px] bg-white dark:bg-slate-800 bg-opacity-75 backdrop-blur-lg p-3 z-[15] transition-all ease-in-out duration-700 ${
         showMobileMenu
           ? 'translate-x-0 opacity-100'
           : '-translate-x-full opacity-0'
@@ -65,13 +65,13 @@ const MobileSideMenu = ({
           {!user && (
             <>
               <Link href={'/login'} onClick={() => setShowMobileMenu(false)}>
-                <li className="flex justify-center gap-2 bg-green-800 hover:bg-opacity-70 text-xs p-3 rounded-md font-bold text-slate-100 transition-colors ease-in w-full mt-3">
+                <li className="flex justify-center gap-2 bg-green-800 dark:bg-slate-500 hover:bg-opacity-70 text-xs p-3 rounded-md font-bold text-slate-100 transition-colors ease-in w-full mt-3">
                   <p>Sign In</p>
                 </li>
               </Link>
 
               <Link href={'/register'} onClick={() => setShowMobileMenu(false)}>
-                <li className="flex justify-center gap-2 bg-orange-400 hover:bg-opacity-70 text-xs p-3 rounded-md font-bold text-slate-100 transition-colors ease-in w-full mt-3">
+                <li className="flex justify-center gap-2 bg-orange-400 dark:bg-slate-700 hover:bg-opacity-70 text-xs p-3 rounded-md font-bold text-slate-100 transition-colors ease-in w-full mt-3">
                   <Image
                     src={SignUpIcon}
                     alt="Login"

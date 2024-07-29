@@ -94,7 +94,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 mt-0 sm:mt-0 relative">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 dark:bg-slate-800 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 dark:shadow-slate-800 mt-0 sm:mt-0 relative">
       {/* Close Button on Desktop */}
 
       <Link
@@ -141,7 +141,7 @@ const RegisterPage: React.FC = () => {
             autoComplete="off"
             {...register('username', { required: true })}
             placeholder="Enter your Preferred Username"
-            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:outline-red-600"
+            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:outline-red-600 dark:text-slate-800"
           />
 
           <input
@@ -151,7 +151,7 @@ const RegisterPage: React.FC = () => {
             autoComplete="off"
             {...register('email', { required: true })}
             placeholder="Enter your Email Address"
-            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:border-red-600"
+            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:border-red-600 dark:text-slate-800"
           />
 
           <input
@@ -161,7 +161,7 @@ const RegisterPage: React.FC = () => {
             {...register('password', { required: true })}
             placeholder="Choose a Secure password"
             // onChange={checkPasswordStrength}
-            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600"
+            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600 dark:text-slate-800"
           />
 
           <input
@@ -169,7 +169,7 @@ const RegisterPage: React.FC = () => {
             autoComplete="off"
             placeholder="Confirm Chosen Password"
             {...register('confirm_password', { required: true })}
-            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600"
+            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600 dark:text-slate-800"
           />
 
           <div className="flex items-center gap-4">
@@ -181,7 +181,7 @@ const RegisterPage: React.FC = () => {
                 name="gender"
                 value="male"
                 required
-                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer"
+                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer dark:text-slate-800"
                 onChange={() => setValue('gender', 'male')}
               />
               <label htmlFor="male" className="text-[16px] -mt-2">
@@ -195,7 +195,7 @@ const RegisterPage: React.FC = () => {
                 name="gender"
                 required
                 value="female"
-                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer"
+                className="mr-3 scale-[120%] sm:scale-[150%] cursor-pointer dark:text-slate-800"
                 onChange={() => setValue('gender', 'female')}
               />
               <label htmlFor="female" className="text-[16px] -mt-2">

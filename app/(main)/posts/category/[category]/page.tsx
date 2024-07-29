@@ -3,7 +3,7 @@
 import FilterButton from '@/components/ui/FilterButton';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 import FeaturedPostCard from '@/components/FeaturedPostCard';
 import fetchCategoryPageWithFilters from '@/actions/fetchCategoryPageWithFilters';
@@ -67,6 +67,12 @@ export default function PostCategoryPage() {
     // return clearInterval(timeout);
   }, [categoryPagePosts]);
 
+  // Memoize the posts to prevent unnecessary re-renders
+  const memoizedCategoryPagePosts = useMemo(
+    () => categoryPagePosts,
+    [categoryPagePosts]
+  );
+
   return (
     <main className="px-5 sm:p-8">
       <section className="flex justify-center md:justify-start gap-3 sm:mt-2 sm:mb-4 mb-2">
@@ -112,8 +118,8 @@ export default function PostCategoryPage() {
         )}
 
         {/* Map Through the Returned Posts and Render on the UI */}
-        {categoryPagePosts &&
-          categoryPagePosts.map((post, index) => (
+        {memoizedCategoryPagePosts &&
+          memoizedCategoryPagePosts.map((post, index) => (
             <FeaturedPostCard
               key={String(post._id)}
               post={post}
@@ -124,7 +130,7 @@ export default function PostCategoryPage() {
         {/* End of the Posts Card Rendering  */}
 
         {/* Pagination Button Begins Here*/}
-        {categoryPagePosts.length > 1 && (
+        {memoizedCategoryPagePosts.length > 1 && (
           <section className="flex justify-between mb-10 h-[120px] text-sm">
             <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
               {totalPosts + ' Posts'}

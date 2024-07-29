@@ -39,11 +39,11 @@ export default function FilePicker({
         }}
       >
         {filesContent[0] ? (
-          <div className="flex gap-2 p-2 items-center bg-gray-300 rounded-md">
+          <div className="flex gap-2 p-2 items-center bg-gray-300 dark:bg-slate-800 rounded-md">
             <p>{filesContent[0]?.name}</p>
           </div>
         ) : (
-          <div className="flex gap-2 p-2 items-center bg-gray-300 rounded-md">
+          <div className="flex gap-2 p-2 items-center bg-gray-300 dark:bg-slate-800 rounded-md">
             <FaFileImage className="" />{' '}
             <p className="text-xs sm:text-base">{buttonTitle}</p>
           </div>

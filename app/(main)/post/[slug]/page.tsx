@@ -111,8 +111,8 @@ const PostViewPage: React.FC = () => {
 
   // Return JSX
   return (
-    <main className="px-5 md:px-10 py-8 cursor-default bg-white rounded-xl  sm:mt-[2.15rem] relative min-h-[700px] overflow-y-scroll mx-3">
-      <h1 className="text-green-900 text-xl sm:text-3xl font-extrabold">
+    <main className="px-5 md:px-10 py-8 cursor-default bg-white dark:bg-slate-800 rounded-xl  sm:mt-[2.15rem] relative min-h-[700px] overflow-y-scroll mx-3">
+      <h1 className="text-green-900 dark:text-white text-xl sm:text-3xl font-extrabold dark:mb-2">
         {post?.title}
       </h1>
       <Link
@@ -126,7 +126,7 @@ const PostViewPage: React.FC = () => {
           height={35}
           className="rounded-full"
         />
-        <p className="text-xs sm:text-lg">@{post?.author_username}</p>
+        <p className="text-xs dark:ml-2 sm:text-lg">@{post?.author_username}</p>
       </Link>
       {/* Define Post Stats Here */}
       <div className="w-full flex justify-between my-3">

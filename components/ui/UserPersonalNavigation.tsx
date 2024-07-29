@@ -13,23 +13,23 @@ const UserPersonalNavigation = async () => {
 
   const personalNavLinks = [
     { title: 'Your Posts', route: `/${user?.username}/posts` },
-    { title: 'Your Replies', route: `/${user?.username}/replies` },
-    { title: 'Posts You Liked', route: `/${user?.username}/likes` },
+    { title: 'Your Comments', route: `/${user?.username}/replies` },
+    { title: 'Posts You Upvoted', route: `/${user?.username}/likes` },
     {
-      title: 'LIkes and Upvotes',
+      title: 'Your Trybe',
       route: `/${user?.username}/likes-upvotes`,
     },
   ];
 
   return (
-    <div className="bg-white mt-5 p-2 rounded-lg">
-      <p className="mb-4 p-2 font-semibold text-gray-700 text-md">
+    <div className="bg-white dark:bg-slate-600 mt-5 p-2 rounded-lg">
+      <p className="mb-1 p-2 font-semibold text-gray-700 dark:text-slate-100 text-md">
         Personal Navigation
       </p>
 
       {personalNavLinks.map((link) => (
         <Link key={link.title} href={link.route}>
-          <p className="hover:bg-slate-100 my-1 p-2 w-full transition cursor-pointer ease-in">
+          <p className="hover:bg-slate-100 hover:dark:bg-slate-700 my-1 p-2 w-full transition cursor-pointer ease-in">
             {link.title}
           </p>
         </Link>

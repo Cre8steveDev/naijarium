@@ -13,7 +13,7 @@ const CategoryTag = ({ category }: Props) => {
   return (
     <div className="flex gap-3">
       <Link href={`/posts/category/${route}`}>
-        <div className="bg-gray-200 hover:bg-opacity-80 p-1 sm:p-2 rounded-md text-gray-700 text-xs">
+        <div className="bg-gray-200 dark:bg-slate-600 dark:text-slate-200 hover:bg-opacity-80 p-1 sm:p-2 rounded-md text-gray-700 text-xs">
           {category}
         </div>
       </Link>

@@ -80,11 +80,11 @@ const EditComment: React.FC<EditCommentCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 dark:bg-slate-700 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowEditCommentBox(false)}
-        className="flex text-xs items-center gap-2 sm:text-xl"
+        className="flex text-xs items-center gap-2 sm:text-xl mt-[50px] sm:mt-0"
       >
         <FaWindowClose
           className="text-red-400 bg-red-600 rounded-lg hover:opacity-50 cursor-pointer transitionopacity ease-in-out"
@@ -94,8 +94,10 @@ const EditComment: React.FC<EditCommentCompProp> = ({
       </button>
 
       {/* JSX of the editor  */}
-      <div className="md:mt-6 text-center w-full text-sm p-3">
-        <h2 className="font-bold text-gray-700 text-xl">Edit the Comment:</h2>
+      <div className="md:mt-6 text-center w-full text-sm p-3 mt-1">
+        <h2 className="font-bold text-gray-700 dark:text-slate-100 text-xl">
+          Edit the Comment:
+        </h2>
       </div>
 
       {/* Editing Form here */}

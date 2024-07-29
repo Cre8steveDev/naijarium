@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 md:rounded-2xl cursor-default shadow-inner shadow-slate-300 -mt-[130px] sm:mt-8 relative h-full sm:h-fit sm:max-h-[750px]">
+    <div className="flex flex-col gap-5 md:flex-row justify-center items-center p-4 px-6 sm:p-12 w-full max-w-[1100px] mx-auto bg-gray-200 dark:bg-slate-800  md:rounded-2xl cursor-default shadow-inner shadow-slate-300 dark:shadow-slate-800 -mt-[130px] sm:mt-8 relative h-full sm:h-fit sm:max-h-[750px]">
       {/* Close Button on Desktop */}
 
       <Link
@@ -119,7 +119,7 @@ const LoginPage: React.FC = () => {
             autoComplete="off"
             {...register('email', { required: true })}
             placeholder="Email Address"
-            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:border-red-600"
+            className="w-full p-3 rounded-lg text-[16px] focus:outline-green-100 invalid:border-red-600 dark:text-slate-800"
           />
 
           <input
@@ -128,7 +128,7 @@ const LoginPage: React.FC = () => {
             autoComplete="off"
             {...register('password', { required: true })}
             placeholder="Enter your Password"
-            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600"
+            className="w-full p-3 rounded-lg text-[16px] valid:outline-green-100 invalid:outline-red-600 dark:text-slate-800"
           />
 
           {/* Submit Button */}

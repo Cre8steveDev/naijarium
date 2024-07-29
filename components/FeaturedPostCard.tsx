@@ -24,7 +24,9 @@ const FeaturedPostCard: React.FC<FeaturedPostCardProps> = ({ post, index }) => {
   return (
     <section
       className={`${
-        index % 2 === 0 ? 'bg-white' : 'bg-green-100 bg-opacity-65'
+        index % 2 === 0
+          ? 'bg-white dark:bg-slate-200'
+          : 'bg-green-100 bg-opacity-65 dark:bg-green-200 dark:bg-opacity-100'
       } shadow-md mb-4 p-4 rounded-md`}
     >
       <Link href={`/post/${post.slug}`}>

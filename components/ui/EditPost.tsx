@@ -82,11 +82,11 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 dark:bg-slate-700 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowEditPostBox(false)}
-        className="flex text-xs items-center gap-2 sm:text-xl"
+        className="flex text-xs items-center gap-2 sm:text-xl mt-[50px] sm:mt-0"
       >
         <FaWindowClose
           className="text-red-400 bg-red-600 rounded-lg hover:opacity-50 cursor-pointer transitionopacity ease-in-out"
@@ -97,7 +97,7 @@ const EditPost: React.FC<EditPostCompProp> = ({
 
       {/* JSX of the editor  */}
       <div className="md:mt-6 text-center w-full text-sm p-3">
-        <h2 className=" sm:font-bold text-gray-700 text-sm">
+        <h2 className=" sm:font-bold text-gray-700 dark:text-slate-200 text-sm">
           Editing Post Content:
         </h2>
         <p className="font-bold text-base">{postTitle}</p>

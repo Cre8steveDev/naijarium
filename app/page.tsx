@@ -4,7 +4,7 @@ import FilterButton from '../components/ui/FilterButton';
 import FilterHomePageDataContext from '../contexts/homepagecontext';
 
 import { IoNewspaperOutline } from 'react-icons/io5';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 import FeaturedPostCard from '../components/FeaturedPostCard';
 import { IPost } from '@/database/models.types';
@@ -12,6 +12,7 @@ import fetchFrontPageWithFilters from '@/actions/fetchFrontPageWithFilters';
 import toast from 'react-hot-toast';
 import LoadingPage from '@/components/ui/LoadingPage';
 import ContentNotFound from '@/components/ui/ContentNotFound';
+import MobileBottomAd from '@/components/ui/MobileBottomAd';
 
 export default function Home() {
   const [filterFeed, setFilterFeed] = useState('featured');
@@ -57,6 +58,12 @@ export default function Home() {
     // return clearInterval(timeout);
   }, [frontPagePosts]);
 
+  // Memoize the posts to prevent unnecessary re-renders
+  const memoizedFrontPagePosts = useMemo(
+    () => frontPagePosts,
+    [frontPagePosts]
+  );
+
   return (
     <FilterHomePageDataContext.Provider value={{ filterFeed, setFilterFeed }}>
       <main className="px-5 sm:p-8 ">
@@ -95,8 +102,8 @@ export default function Home() {
           )}
 
           {/* Map Through the Returned Posts and Render on the UI */}
-          {frontPagePosts &&
-            frontPagePosts.map((post, index) => (
+          {memoizedFrontPagePosts &&
+            memoizedFrontPagePosts.map((post, index) => (
               <FeaturedPostCard
                 key={String(post._id)}
                 post={post}
@@ -107,8 +114,8 @@ export default function Home() {
           {/* End of the Posts Card Rendering  */}
 
           {/* Pagination Button Begins Here*/}
-          {frontPagePosts.length > 1 && (
-            <section className="flex justify-between mb-10 h-[120px] text-sm">
+          {memoizedFrontPagePosts.length > 1 && (
+            <section className="flex justify-between md:mb-10 h-[120px] text-sm">
               <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
                 {totalPosts + ' Posts'}
               </p>
@@ -135,6 +142,7 @@ export default function Home() {
           )}
 
           {/* Pagination Button Ends Here */}
+          <MobileBottomAd />
         </section>
       </main>
     </FilterHomePageDataContext.Provider>

@@ -97,11 +97,11 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
 
   //   Return JSX
   return (
-    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
+    <div className="w-full h-full fixed top-0 sm:top-[90px] left-0 p-5 pt-8 sm:px-[100px] bg-slate-200 dark:bg-slate-700 backdrop-blur-lg bg-opacity-70 z-10 overflow-y-scroll">
       {/* Style Close Button */}
       <button
         onClick={() => setShowCommentBox(false)}
-        className="flex text-xs items-center gap-2"
+        className="flex text-xs items-center gap-2 sm:text-xl mt-[50px] sm:mt-0"
       >
         <FaWindowClose
           className="text-red-400 bg-red-600 rounded-lg hover:opacity-50 cursor-pointer transitionopacity ease-in-out"
@@ -112,12 +112,16 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
 
       {/* JSX of the editor  */}
       <div className="md:mt-6 text-center w-full text-sm p-3">
-        <h2 className=" sm:font-bold text-gray-700 ">Replying To Post:</h2>
-        <p className="text-gray-700 sm:text-xl font-bold">{postTitle}</p>
+        <h2 className="font-bold text-gray-700 dark:text-slate-100 text-xl">
+          Commenting on Post:
+        </h2>
+        <p className="text-gray-700 dark:text-slate-100 sm:text-xl font-bold">
+          {postTitle}
+        </p>
       </div>
 
       {/* Editing Form here */}
-      <div className="w-full sm:[80%]">
+      <div className="w-full sm:[80%] max-w-[800px] mx-auto">
         <Editor
           apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
           onInit={(_evt, editor) =>
@@ -159,10 +163,10 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
       </div>
 
       {/* Custom File Pickers  */}
-      <p className=" text-xs text-left ml-2 mt-3">
+      <p className=" text-xs text-left ml-2 mt-3 sm:text-center">
         File Upload is Optional. Keep files under 2mb
       </p>
-      <div className="flex gap-5 w-full p-2 overflow-x-hidden mb-3">
+      <div className="flex gap-5 w-full p-2 overflow-x-hidden mb-3 sm:justify-center">
         <FilePicker
           setPictureUrl={setPicture1}
           buttonTitle="Select Picture 01"
@@ -174,13 +178,15 @@ const CommentOnPostComponent: React.FC<CommentCompProp> = ({
       </div>
 
       {/* Submit Comment */}
-      <button
-        onClick={handleSubmitComment}
-        disabled={isSubmitting}
-        className="w-full bg-green-600 p-2 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
-      >
-        {isSubmitting ? 'Please wait...' : 'Submit Post'}
-      </button>
+      <div className="w-full max-w-[800px] mx-auto">
+        <button
+          onClick={handleSubmitComment}
+          disabled={isSubmitting}
+          className="w-full max-w-[800px] mx-auto bg-green-600 p-2 rounded-md uppercase font-bold text-slate-50 btn-general disabled:bg-gray-300 disabled:cursor-not-allowed transition ease-in-out"
+        >
+          {isSubmitting ? 'Please wait...' : 'Submit Post'}
+        </button>
+      </div>
     </div>
   );
 };

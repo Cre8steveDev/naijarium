@@ -25,14 +25,14 @@ const MobileUserPersonalNavigation = ({
   ];
 
   return (
-    <div className="bg-white mt-5 p-2 rounded-lg">
+    <div className="bg-white dark:bg-slate-700 mt-5 p-2 rounded-lg">
       {/* Greeting Component  */}
       <div className="p-2 bg-slate-100 rounded-lg">
         <p>{getGreeting()}</p>
         <h2 className="font-black text-2xl text-slate-500">@{user.username}</h2>
       </div>
 
-      <p className="mb-4 p-2 font-semibold text-gray-700 text-md">
+      <p className="mb-0 mt-2 p-2 font-semibold text-gray-700 dark:text-white text-md">
         Personal Navigation
       </p>
 

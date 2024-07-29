@@ -22,6 +22,18 @@ const config = {
         'max-h-768': { raw: '(max-height: 769px)' },
       },
       colors: {
+        dark: {
+          bg: {
+            primary: '#121212',
+            secondary: '#1E1E1E',
+            tertiary: '#2C2C2C',
+          },
+          text: {
+            primary: '#FFFFFF',
+            secondary: '#B0B0B0',
+            tertiary: '#808080',
+          },
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

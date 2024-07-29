@@ -66,8 +66,10 @@ const CommentCard = ({
   return (
     <div
       className={`${
-        index % 2 !== 0 ? 'bg-white' : 'bg-slate-100'
-      } my-2 rounded-md p-1 sm:p-3`}
+        index % 2 !== 0
+          ? 'bg-white dark:bg-slate-500'
+          : 'bg-slate-100 dark:bg-slate-700'
+      } my-2 rounded-md p-1 px-2 sm:p-3`}
     >
       <div className={`flex gap-3 items-center mb-2`}>
         <Image
@@ -93,7 +95,7 @@ const CommentCard = ({
       {/* Show Comment Pictures here */}
 
       {/* Comment Interaction */}
-      <div className="flex gap-2 items-center my-3 text-black">
+      <div className="flex gap-2 items-center my-3 text-black dark:text-slate-100">
         {/* Like and Dislike Button  */}
         <p className="text-xs sm:text-[15px]">{`${thisComment.likes.length} Likes`}</p>
         {userId !== 'nil' && (
@@ -111,7 +113,7 @@ const CommentCard = ({
 
             {/* Quote Comment  */}
             <button
-              className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+              className="px-[6px] py-[1px] text-[9px] sm:text-[12px] dark:bg-orange-600  bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
               onClick={() => toast.error('TODO: Feature not yet implemented.')}
             >
               Quote
@@ -120,7 +122,7 @@ const CommentCard = ({
             {/* Edit Comment  */}
             {thisComment.author === userId && (
               <button
-                className="px-[6px] py-[1px] text-[9px] sm:text-[12px] bg-slate-200 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
+                className="px-[6px] py-[1px] text-[9px] sm:text-[12px] bg-slate-200 dark:bg-green-900 rounded-lg hover:bg-slate-800 hover:text-white transition-all ease-in-out"
                 onClick={() => setShowEditCommentBox(true)}
               >
                 Edit
@@ -130,7 +132,7 @@ const CommentCard = ({
             {/* Delete Comment  */}
             {thisComment.author === userId && (
               <button
-                className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all ease-in-out"
+                className="px-[6px] py-[1px] text-[9px] sm:text-[12px]  bg-slate-200 dark:bg-red-800 rounded-lg hover:bg-red-500 hover:text-white transition-all ease-in-out"
                 onClick={handleDeleteComment}
               >
                 Delete
@@ -149,7 +151,7 @@ const CommentCard = ({
         )}
 
         {thisComment.edited && (
-          <p className="text-[9px] sm:text-[12px] ml-[20px] text-orange-700">
+          <p className="text-[9px] sm:text-[12px] ml-[20px] text-orange-700 dark:text-slate-300">
             Edited
           </p>
         )}
