@@ -17,7 +17,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 // Define Metadata for the general site layout
 export const metadata: Metadata = generateMetadata({
-  title: 'Naijarium | Social Media Forum for Nigerians',
+  title: 'Social Media Forum for Nigerians',
 });
 
 // Define the root layout here
