@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       post.content!
     ).slice(0, 150)} + "...Read More`,
     ogImage:
-      post.post_picture1 !== ''
+      post.post_picture1 && post.post_picture1 !== ''
         ? post.post_picture1?.replace('upload', 'upload/c_fill,w_1200,h_630')
         : 'https://res.cloudinary.com/dg0qc5gkl/image/upload/v1722329485/naijarium-og-image_q0nrzo.png',
   });
