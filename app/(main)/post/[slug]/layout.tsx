@@ -24,6 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: ` Created by: ${post.author_username} - ${stripHtmlTags(
       post.content!
     ).slice(0, 150)} + "...Read More`,
+    ogImage:
+      post.post_picture1 !== ''
+        ? post.post_picture1
+        : 'https://res.cloudinary.com/dg0qc5gkl/image/upload/v1722329485/naijarium-og-image_q0nrzo.png',
   });
 }
 
