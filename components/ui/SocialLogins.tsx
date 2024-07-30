@@ -1,17 +1,27 @@
+'use client';
 /**Social Login UI Component  */
 
 import Image from 'next/image';
 import { handleSocialSignIn } from '@/actions/authActions';
 import googleLogo from '@/public/images/google.webp';
 import githubLogo from '@/public/images/github.png';
+import toast from 'react-hot-toast';
 
 // import { usePathname } from 'next/navigation';
 
 const SocialLogins = () => {
   // Return JSX
+
+  //
   return (
     <form
-      action={handleSocialSignIn}
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        return toast.error('Feature coming soon... 😉');
+      }}
+      // action={handleSocialSignIn}
       className="flex w-full flex-col items-center gap-4 text-center text-xs sm:items-start sm:text-left sm:text-sm"
     >
       <hr className="border-1 border-gray-300" />
@@ -31,7 +41,7 @@ const SocialLogins = () => {
           />
         </button>
 
-        {/* <button
+        <button
           type="submit"
           name="auth"
           value="google"
@@ -42,7 +52,7 @@ const SocialLogins = () => {
             alt="Login Photo"
             className="w-full object-cover active:scale-90"
           />
-        </button> */}
+        </button>
       </div>
     </form>
   );
