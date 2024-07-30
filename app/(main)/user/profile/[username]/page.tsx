@@ -55,11 +55,11 @@ const UserProfile: React.FC = () => {
         updatePostViews(id as string);
 
         // Reset Page loading state
-        setIsLoading(false);
+        // setIsLoading(false);
       })
       .catch((error) => {
         toast.error(error.message);
-        setIsLoading(false);
+        // setIsLoading(false);
         setError({
           status: true,
           message: error.message,

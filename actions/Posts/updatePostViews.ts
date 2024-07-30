@@ -25,9 +25,7 @@ async function updatePostViews(id: string) {
       },
       { new: true }
     );
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 export default updatePostViews;

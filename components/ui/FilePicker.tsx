@@ -28,7 +28,6 @@ export default function FilePicker({
     setPictureUrl(result.info.secure_url);
     setUploadedImageUrl(result.info.secure_url);
     toast.success('Image Uploaded.');
-    console.log('SECURE URL: ', result.info.secure_url);
   };
 
   return (

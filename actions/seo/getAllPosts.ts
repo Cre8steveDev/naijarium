@@ -16,9 +16,7 @@ async function getAllPosts(): Promise<IPost[]> {
     const allPosts = await Post.find();
 
     return allPosts;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 
   return [];
 }

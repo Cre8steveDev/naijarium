@@ -48,7 +48,6 @@ async function editPostAction(
 
     return JSON.stringify(true);
   } catch (error) {
-    console.log(error);
     return JSON.stringify(false);
   }
 }

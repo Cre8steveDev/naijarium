@@ -69,7 +69,6 @@ async function POST(req: NextRequest, res: NextResponse) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       {
         message: 'Oops! An Error Occurred. Please Try again later.',

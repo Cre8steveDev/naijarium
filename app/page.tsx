@@ -30,8 +30,6 @@ export default function Home() {
     //  Set Up Page State
     setErrorLoadingFeed(false);
 
-    console.log('Filter typed changed: ', filterFeed);
-
     // Begin Data Fetching
     try {
       fetchFrontPageWithFilters(filterFeed, pageNumber).then((response) => {
@@ -40,7 +38,6 @@ export default function Home() {
         // Set the page content
         setFrontPagePosts(response.data);
         setTotalPosts(response.totalPosts);
-        console.log(response.data);
       });
     } catch (error: any & { message: string }) {
       toast.error(error?.message!);

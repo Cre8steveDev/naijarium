@@ -109,8 +109,6 @@ const PostViewPage: React.FC = () => {
     return <ContentNotFound text="Invalid Post Url. Post not found." />;
   }
 
-  console.log('The Received Post: ', post);
-
   // Return JSX
   return (
     <main className="relative mx-3 min-h-[700px] cursor-default overflow-y-scroll rounded-xl bg-white px-5 py-8 dark:bg-slate-800 sm:mt-[2.15rem] md:px-10">

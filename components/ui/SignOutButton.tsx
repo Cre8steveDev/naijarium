@@ -19,7 +19,6 @@ const SignOutButton = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         const response = await signOut();
-        console.log(response);
       }}
     >
       <button

@@ -18,7 +18,6 @@ async function deleteComment(commentId: string, postId: string) {
 
     return JSON.stringify({ success: true });
   } catch (error) {
-    console.log(error);
     return JSON.stringify(null);
   }
 }

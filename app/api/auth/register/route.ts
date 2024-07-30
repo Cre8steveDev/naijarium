@@ -38,7 +38,6 @@ export const POST = async (request: NextRequest) => {
 
     // Handle Errors that may occur during DB creation action
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: 'Error occured while registring the user' },
       { status: 500 }

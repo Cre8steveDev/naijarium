@@ -34,9 +34,7 @@ async function fetchFrontPageWithFilters(
     };
 
     return returnedValue;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 
   return null;
 }

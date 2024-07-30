@@ -24,7 +24,6 @@ const CommentCard = ({
   const [showEditCommentBox, setShowEditCommentBox] = useState(false);
   const [selectedPicture, setSelectedPicture] = useState('');
 
-  console.log(comment);
   // Handle Comment LIke
   const handleCommentLike = async () => {
     try {
@@ -35,9 +34,7 @@ const CommentCard = ({
 
       const parsed = JSON.parse(updatedComment);
       setThisComment(parsed);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   // Handle Comment Delete
@@ -57,7 +54,6 @@ const CommentCard = ({
         throw new Error('Error occured. ');
       }
     } catch (error) {
-      console.log(error);
       toast.error('Unable to delete comment at this time.');
     }
   };

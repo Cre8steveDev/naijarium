@@ -89,7 +89,6 @@ const CreatePostForm = () => {
       toast.success(response.data.message);
       setTimeout(() => router.push(response.data.redirectUrl), 1000);
     } catch (error) {
-      console.log(error);
       //@ts-ignore
       toast.error(error?.response?.data?.message || error.message);
     } finally {

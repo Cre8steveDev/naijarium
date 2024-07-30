@@ -48,7 +48,6 @@ async function editComment(
 
     return JSON.stringify(newComment);
   } catch (error) {
-    console.log(error);
     return JSON.stringify(null);
   }
 }

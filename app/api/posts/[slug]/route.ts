@@ -17,8 +17,6 @@ async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
 
     // Catch Block Below
   } catch (error: any & { message: string }) {
-    console.log(error.message);
-
     return NextResponse.json(
       {
         error: true,

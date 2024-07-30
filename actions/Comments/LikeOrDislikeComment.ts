@@ -26,7 +26,6 @@ async function likeOrDislikeComment(commentId: string, userId: string) {
 
     return JSON.stringify(result);
   } catch (error) {
-    console.log(error);
     return JSON.stringify(null);
   }
 }
