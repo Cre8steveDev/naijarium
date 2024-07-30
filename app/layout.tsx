@@ -29,7 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="shortcut icon" href="/images/logo.png" type="image/png" />
+      <head>
+        <link rel="shortcut icon" href="/images/logo.png" type="image/png" />
+        <meta
+          name="google-site-verification"
+          content="wEZptpELzFx1EKXIce5UvVPt_zaRxNb-wIkZzp1J-uo"
+        />
+      </head>
       <body
         className={
           inter.className + ' bg-gray-100 dark:bg-slate-800 relative h-full'
