@@ -38,6 +38,7 @@ export const postSchema = new mongoose.Schema(
     isFeatured: { type: Boolean, default: false },
     isClosed: { type: Boolean, default: false },
     content: { type: String, required: true, trim: true },
+    dateFeatured: { type: Date },
     views: { type: Number, default: 0 },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],

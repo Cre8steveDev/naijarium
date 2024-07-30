@@ -1,5 +1,6 @@
 'use server';
 
+import BASEURL from '@/constants/BASEURL';
 import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
 import { IPost } from '@/database/models.types';
@@ -24,16 +25,9 @@ async function fetchFrontPageWithFilters(
     await connectDB();
     const data = { filtertype, pageNumber };
 
-    const featuredPosts = await axios.post(
-      'https://naijarium.vercel.app/api/posts',
-      data
-    );
+    const featuredPosts = await axios.post(`${BASEURL}/api/posts`, data);
 
-    // const featuredPosts = await axios.post(
-    //   'http://localhost:3000/api/posts',
-    //   data
-    // );
-
+    // Build Return Object
     const returnedValue = {
       data: featuredPosts.data.retrievedPosts as IPost[],
       totalPosts: featuredPosts.data.totalPosts,

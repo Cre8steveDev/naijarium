@@ -10,16 +10,15 @@ import { ThemeProvider } from '@/contexts/ThemeProvider';
 // Import Stylesheets
 import './globals.css';
 import './prism.css';
+import { generateMetadata } from '@/components/seo/PageSEO';
 
 // Instantiate the Font for the body
 const inter = Inter({ subsets: ['latin'] });
 
-// DEfine the Metadata for the page
-export const metadata: Metadata = {
-  title: 'Naijarium | Forum for well thinking patriotic Nigerians',
-  description:
-    'Naijarium is a free forum build for Nigerians who interested in having a social platform free from the usual social media noise and vileness of tribalism/hate speech.',
-};
+// Define Metadata for the general site layout
+export const metadata: Metadata = generateMetadata({
+  title: 'Naijarium | Social Media Forum for Nigerians',
+});
 
 // Define the root layout here
 

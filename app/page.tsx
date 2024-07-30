@@ -19,6 +19,8 @@ export default function Home() {
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
   const [frontPagePosts, setFrontPagePosts] = useState<IPost[]>([]);
+  const [displayedPosts, setDisplayedPosts] = useState<IPost[]>([]);
+
   const [loadingFeed, setLoadingFeed] = useState(true);
   const [errorLoadingFeed, setErrorLoadingFeed] = useState(false);
 
@@ -28,6 +30,8 @@ export default function Home() {
     //  Set Up Page State
     setErrorLoadingFeed(false);
 
+    console.log('Filter typed changed: ', filterFeed);
+
     // Begin Data Fetching
     try {
       fetchFrontPageWithFilters(filterFeed, pageNumber).then((response) => {
@@ -36,6 +40,7 @@ export default function Home() {
         // Set the page content
         setFrontPagePosts(response.data);
         setTotalPosts(response.totalPosts);
+        console.log(response.data);
       });
     } catch (error: any & { message: string }) {
       toast.error(error?.message!);
@@ -49,7 +54,6 @@ export default function Home() {
 
   // Scroll to top when next/prev page via pagination
   useEffect(() => {
-    let timeout;
     if (postContainerRef.current) {
       const container = postContainerRef.current;
       container.scrollTo(0, 0);
@@ -58,12 +62,25 @@ export default function Home() {
     // return clearInterval(timeout);
   }, [frontPagePosts]);
 
-  // Memoize the posts to prevent unnecessary re-renders
-  const memoizedFrontPagePosts = useMemo(
-    () => frontPagePosts,
-    [frontPagePosts]
-  );
+  // Fixing performance issue of rendering too many cards at once
+  // Was causing slow time in first contentful paint of featured posts
+  useEffect(() => {
+    if (frontPagePosts) {
+      setDisplayedPosts([]);
+      const loadPosts = async () => {
+        for (let i = 0; i < frontPagePosts.length; i += 4) {
+          setDisplayedPosts((prev) => [
+            ...prev,
+            ...frontPagePosts.slice(i, i + 4),
+          ]);
+          await new Promise((resolve) => setTimeout(resolve, 100)); // Small delay between batches
+        }
+      };
+      loadPosts();
+    }
+  }, [frontPagePosts, filterFeed, pageNumber]);
 
+  // Return JSX UI Component
   return (
     <FilterHomePageDataContext.Provider value={{ filterFeed, setFilterFeed }}>
       <main className="px-5 sm:p-8 ">
@@ -102,10 +119,10 @@ export default function Home() {
           )}
 
           {/* Map Through the Returned Posts and Render on the UI */}
-          {memoizedFrontPagePosts &&
-            memoizedFrontPagePosts.map((post, index) => (
+          {displayedPosts &&
+            displayedPosts.map((post, index) => (
               <FeaturedPostCard
-                key={String(post._id)}
+                key={String(post._id) + String(index)}
                 post={post}
                 index={index}
               />
@@ -114,7 +131,7 @@ export default function Home() {
           {/* End of the Posts Card Rendering  */}
 
           {/* Pagination Button Begins Here*/}
-          {memoizedFrontPagePosts.length > 1 && (
+          {frontPagePosts.length > 1 && (
             <section className="flex justify-between md:mb-10 h-[120px] text-sm">
               <p className="bg-gray-300 p-2 rounded-lg w-[100px] font-bold text-center text-gray-600 text-md cursor-default self-start">
                 {totalPosts + ' Posts'}

@@ -1,3 +1,4 @@
+import BASEURL from '@/constants/BASEURL';
 import { IPost } from '@/database/models.types';
 import axios from 'axios';
 
@@ -6,7 +7,7 @@ export async function fetchSinglePost(
 ): Promise<IPost | undefined> {
   try {
     // Simulating an asynchronous API call
-    const response = await axios.get(`/api/posts/${slug}`);
+    const response = await axios.get(`${BASEURL}/api/posts/${slug}`);
     const data = response.data;
 
     return data;

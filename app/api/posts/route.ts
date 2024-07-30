@@ -22,7 +22,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       //@ts-ignore
       const retrievedPosts = await Post.find({ isFeatured: true })
         .limit(pageSize)
-        .sort({ createdAt: -1 })
+        .sort({ dateFeatured: -1 })
         .skip(skip);
 
       return NextResponse.json({ retrievedPosts, totalPosts }, { status: 200 });

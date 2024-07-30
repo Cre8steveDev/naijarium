@@ -1,5 +1,6 @@
 'use server';
 
+import BASEURL from '@/constants/BASEURL';
 import connectDB from '@/database/connection';
 import { Post } from '@/database/models';
 import { IPost } from '@/database/models.types';
@@ -26,14 +27,9 @@ async function fetchCategoryPageWithFilters(
     const data = { filtertype, pageNumber, category };
 
     const featuredPosts = await axios.post(
-      'https://naijarium.vercel.app/api/posts/category',
+      `${BASEURL}/api/posts/category`,
       data
     );
-
-    // const featuredPosts = await axios.post(
-    //   'http://localhost:3000/api/posts/category',
-    //   data
-    // );
 
     const returnedValue = {
       data: featuredPosts.data.retrievedPosts as IPost[],
