@@ -17,6 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: 'Post Not Found | Naijarium',
     });
   }
+  console.log('PAGE METADATA REQUESTED FOR POSSST');
+  console.log(post);
+  console.log(post.post_picture1);
 
   // Generate the metadata using the fetched post data
   return baseGenerateMetadata({
